@@ -1,16 +1,15 @@
 ﻿using System.IO;
 using Amazon.Polly;
 using Amazon.Polly.Model;
-using UnityEngine;
 
-namespace PollyLib
+namespace AWS
 {
     public static class AWSPolly
     {
 
         private static AmazonPollyClient pc;
 
-        static AWSPolly()
+        static AWSPolly()   //TODO move credentials into external file
         {
             Amazon.Runtime.AWSCredential cred = new Amazon.Runtime.AWSCredential(
                 "ASIA2RT5FL2BKHNXWLWQ",
@@ -20,10 +19,8 @@ namespace PollyLib
             pc = new AmazonPollyClient(cred, Amazon.RegionEndpoint.USEast1);
         }
 
-        public static void runPolly(string inputText)
+        public static void runPolly(string inputText)   //TODO make polly config settings accessible from editor
         {
-            Debug.LogError("starting");
-
             SynthesizeSpeechRequest sreq = new SynthesizeSpeechRequest();
             sreq.Text = inputText;
             sreq.OutputFormat = OutputFormat.Mp3;
@@ -37,7 +34,6 @@ namespace PollyLib
                 fileStream.Flush();
                 fileStream.Close();
             }
-            Debug.LogError("done");
         }
     }
 }

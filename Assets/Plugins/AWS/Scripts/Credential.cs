@@ -1,9 +1,13 @@
-﻿namespace Amazon.Runtime
+﻿using Amazon.Runtime;
+
+
+//TODO see if this class can be removed entirely
+namespace AWS
 {
-    public class AWSCredential : AWSCredentials
+    public class Credential : AWSCredentials
     {
         ImmutableCredentials cred;
-        public AWSCredential(string accessKey, string secretKey, string secretToken)
+        public Credential(string accessKey, string secretKey, string secretToken)
         {
             cred = new ImmutableCredentials(accessKey, secretKey, secretToken);
         }
@@ -14,5 +18,6 @@
         }
     }
 }
+
 
 

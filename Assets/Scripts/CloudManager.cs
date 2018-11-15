@@ -4,8 +4,7 @@ using UnityEngine;
 
 public static class CloudManager	//TODO inactivity timeout
 {
-    //TODO implement watson control
-    //TODO implement AWS comprehend
+    //TODO implement AWS comprehend, S3, Transcribe
 
     private static Thread pollyThread = new Thread(pollyJob);
     private static bool pollyThreadIsRunning;
@@ -19,7 +18,7 @@ public static class CloudManager	//TODO inactivity timeout
     ///helper class for safely starting polly threads
     private static void pollyJob()
     {
-        AWSPolly.runPolly(pollyInputText);
+        Polly.runPolly(pollyInputText);
         pollyThreadIsRunning = false;
         //TODO call event now that polly audio file is ready
     }

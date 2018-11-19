@@ -25,36 +25,36 @@ namespace AWS
         //    UploadFileStreamAsync().Wait();
         //}
 
-        public static void CreateBucket()
-        {
-            s3Client = new AmazonS3Client(CredentialManager.getCredential(), bucketRegion);
-            try
-            {
-                if (AmazonS3Util.DoesS3BucketExist(s3Client, bucketName))
-                {
-                    var putBucketRequest = new PutBucketRequest()
-                    {
-                        BucketName = bucketName,
-                        UseClientRegion = true
-                    };
+        //public static void CreateBucket()
+        //{
+        //    s3Client = new AmazonS3Client(CredentialManager.getCredential(), bucketRegion);
+        //    try
+        //    {
+        //        if (AmazonS3Util.DoesS3BucketExist(s3Client, bucketName))
+        //        {
+        //            var putBucketRequest = new PutBucketRequest()
+        //            {
+        //                BucketName = bucketName,
+        //                UseClientRegion = true
+        //            };
 
-                    PutBucketResponse putBucketResponse = s3Client.PutBucket(putBucketRequest);
-                }
-                //Not sure if these are needed:
-                //var getBucketLocationRequest = new GetBucketLocationRequest();
-                //string bucketLocation = getBucketLocationRequest.BucketName;
-            }
-            catch (AmazonS3Exception e)
-            {
+        //            PutBucketResponse putBucketResponse = s3Client.PutBucket(putBucketRequest);
+        //        }
+        //        //Not sure if these are needed:
+        //        //var getBucketLocationRequest = new GetBucketLocationRequest();
+        //        //string bucketLocation = getBucketLocationRequest.BucketName;
+        //    }
+        //    catch (AmazonS3Exception e)
+        //    {
 
-                Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
-            }
+        //        Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
+        //    }
 
-        }
+        //}
 
 
         private static void UploadFile()
@@ -70,14 +70,14 @@ namespace AWS
 
             catch (AmazonS3Exception e)
             {
-                Console.WriteLine($"Error encountered on server. Message: '{e.Message}' when writing an object.");
+                Debug.LogError($"Error encountered on server. Message: '{e.Message}' when writing an object.");
 
             }
 
-            catch (Exception e)
-            {
-                Console.WriteLine($"Unknown encountered on server. Message: '{e.Message}' when writing an object.");
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.LogError($"Unknown encountered on server. Message: '{e.Message}' when writing an object.");
+            //}
 
           
 
@@ -101,13 +101,13 @@ namespace AWS
 
             catch (AmazonS3Exception e)
             {
-                Console.WriteLine($"Error encountered on server. Message: '{e.Message}' when writing an object.");
+                Debug.LogError($"Error encountered on server. Message: '{e.Message}' when writing an object.");
             }
 
-            catch (Exception e)
-            {
-                Console.WriteLine($"Unknown encountered on server. Message: '{e.Message}' when writing an object.");
-            }
+            //catch (Exception e)
+            //{
+            //    Debug.LogError($"Unknown encountered on server. Message: '{e.Message}' when writing an object.");
+            //}
 
         }
 

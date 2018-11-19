@@ -6,27 +6,27 @@ namespace CSUSBNursingSimulator.Utility
 {
     public class AuthorizationController
     {
-        private string SecretKey { get; set; }
+        public string SecretKey { get; protected set; }
 
-        private string SecretToken { get; set; }
+        public string SecretToken { get; protected set; }
 
-        private string AccessToken { get; set; }
+        public string AccessToken { get; protected set; }
 
-        private const string FileName = "cred.cfg";
+        public string FileName { get; protected set; }
 
-        public AuthorizationController()
+    public AuthorizationController(string Filepath)
         {
+            this.FileName = Filepath;
             this.LoadCredentialsFromFile();
         }
 
         private void LoadCredentialsFromFile()
         {
-            if (!File.Exists(FileName))
-            {
-                throw new FileNotFoundException();
-            }
             Configuration cfg = new Configuration();
             cfg = Configuration.LoadFromFile(FileName);
-    }
+            this.SecretKey = cfg["AWSCredentials"]["SecretKey"].StringValue;
+            this.AccessToken = cfg["AWSCredentials"]["AccessToken"].StringValue;
+            this.SecretToken = cfg["AWSCredentials"]["SecretToken"].StringValue;
+        }
     }
 }

@@ -1,13 +1,15 @@
-﻿using System.IO;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 
+/// <summary>
+/// Class that handles the audio clips for AI
+/// </summary>
 public class AudioPlayer : MonoBehaviour
 {
     public AudioClip sampleClip;
     public AudioSource a;
-    public string audioDirectoryPath = @"C:\Users\Ryan\Desktop\AudioFolder\";
     public string audioFileName;
     public string audioTypeExtension = ".mp3";
     public AudioType audioType = AudioType.MPEG;
@@ -17,7 +19,7 @@ public class AudioPlayer : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-		
+        Debug.Log(Directory.GetTempDirectory());
 	}
 	
 	// Update is called once per frame
@@ -28,6 +30,9 @@ public class AudioPlayer : MonoBehaviour
         SetAudioClip();
     }
 
+    /// <summary>
+    /// Test to play audio clip (will most likely be a public function that will call the coroutine in one frame)
+    /// </summary>
     private void PlayAudioClip()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -36,24 +41,30 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Test to set the audioClip path (will likely be a public function that will be called once)
+    /// </summary>
     private void SetAudioClip()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SetAudioTypeExtension();
 
-            www = new WWW(audioDirectoryPath + "ring" + audioTypeExtension);
+            www = new WWW(Directory.GetTempDirectory() + "ring" + audioTypeExtension);
             Debug.Log(www.url);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SetAudioTypeExtension();
 
-            www = new WWW(audioDirectoryPath + "menuselect" + audioTypeExtension);
+            www = new WWW(Directory.GetTempDirectory() + "menuselect" + audioTypeExtension);
             Debug.Log(www.url);
         }
     }
 
+    /// <summary>
+    /// Sets the AudioType setting to check for either .mp3 or .wav files
+    /// </summary>
     private void SetAudioTypeExtension()
     {
         switch(audioType)
@@ -67,6 +78,10 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coroutine that waits for the www path, checks if it downloaded the audioClip, and plays audioClip in one shot
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DownloadAudioClip()
     {
         yield return www;
@@ -76,5 +91,14 @@ public class AudioPlayer : MonoBehaviour
             sampleClip = www.GetAudioClip(false, true, audioType);
             a.PlayOneShot(sampleClip);
         }
+    }
+
+    /// <summary>
+    /// A public function that allows a string to be passed in the argument to select the audioClip that will be played.
+    /// </summary>
+    /// <param name="clipName"></param>
+    public void SetAudioClipName(string clipName)
+    {
+        audioFileName = clipName;
     }
 }

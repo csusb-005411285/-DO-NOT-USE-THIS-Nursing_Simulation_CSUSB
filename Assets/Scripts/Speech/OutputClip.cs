@@ -9,7 +9,7 @@ namespace Speech
         /// string of the output phrase this object holds audio for
         public string outputPhrase;
         /// list of audio clips for specific phrase, [0]=first character, [1]=second character, etc...
-        public string[] outputClips = new string[1];  
+        public string[] outputAudioClips = new string[1];  
     }
 }
 

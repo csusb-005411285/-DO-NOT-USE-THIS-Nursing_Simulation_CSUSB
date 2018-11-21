@@ -1,46 +1,45 @@
 ﻿using System.Threading;
 using AWS;
 using UnityEngine;
+using System.Collections;
 
 public static class CloudManager	//TODO inactivity timeout
 {
     //TODO implement AWS comprehend, S3, Transcribe
 
+    private static int maxPollyThreads = 9;
+    private static int runningPollyThreads = 0;
     private static Thread pollyThread = new Thread(pollyJob);
-    private static bool pollyThreadIsRunning;
-    private static string pollyInputText;
+    private static Queue pollyJobQueue = new Queue();
 
-    static CloudManager()
-    {
-        pollyThreadIsRunning = false;
-    }
+    //private static Thread pollyThreadArray = new Thread(() => pollyJob(textToSpeechInput));
+    //pollyThreadArray.Start();
+
 
     ///helper class for safely starting polly threads
-    private static void pollyJob()
+    private static void pollyJob(object pollyInputText)
     {
-        Polly.runPolly(pollyInputText);
-        pollyThreadIsRunning = false;
-        //TODO call event now that polly audio file is ready
+        Polly.runPolly((string)pollyInputText);
+        runningPollyThreads--;
     }
 
-    /// <summary>
     /// spawns a thread to request text-to-speech audio from AWSPolly.
-    /// Only one thread allowed at a time. calls _//TODO_ event when file is ready
-    /// </summary>
     /// <param name="textToSpeechInput">text that will be converted into audio</param>
     public static void startPollyJob(string textToSpeechInput)
     {
-        if (pollyThreadIsRunning != true)   //only run one polly job (thread) at a time
+        pollyJobQueue.Enqueue(textToSpeechInput);
+        if (runningPollyThreads < maxPollyThreads)
         {
-            pollyThreadIsRunning = true;
-            pollyInputText = textToSpeechInput;
-            pollyThread = null; //clean up old thread for garbage collection
-            pollyThread = new Thread(pollyJob); //create new thread
-            pollyThread.Start();
+            runningPollyThreads++;
+
+            pollyThread = new Thread(() => pollyJob(textToSpeechInput));
+
+            //TODO test this
         }
-        else
-        {
-            Debug.LogError("calling startPollyJob() too fast. Only one polly job at a time is allowed.");
-        }
+    }
+
+    public static void joinPollyJobs()
+    {
+        ThreadPool.QueueUserWorkItem(_ => pollyJob());
     }
 }

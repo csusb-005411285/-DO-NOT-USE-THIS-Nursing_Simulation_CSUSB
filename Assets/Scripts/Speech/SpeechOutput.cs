@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Speech
 {
@@ -9,26 +10,33 @@ namespace Speech
         /// list of similar phrases for output
         public string[] outputPhrases = new string[1];
         /// array for holding outputClips for character
-        private OutputClip[] outputClips = new OutputClip[1];
+        public OutputClip[] outputAudioClipList;
 
         /// returns OutputClip of a phrase in OutputPhrases array
-        /// <param name="phraseNumber">defaults to random phrase from OutputPhrases array, can specify specific phrase to output</param>
+        /// <param name="phraseNumber">(optional) defaults to random phrase from OutputPhrases array, can specify specific phrase to output</param>
         /// <returns>OutputClip that corresponds with selected phrase, defaults to random</returns>
         public OutputClip GetOutputClip(int phraseNumber = -1)
         {
+            if (outputAudioClipList.Length == 0)
+            {
+                SerializedObject serializedObject1 = new SerializedObject(this);
+                Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue + 
+                    " has no attached audio clips in outputAudioClipList[], use GenerateOutputClips to fix");
+                return null;
+            }
             int characterArraySelection = CharacterManager.currentCharacter.characterNumber;
 
             if (phraseNumber < 0)   //default, return random clip from list
             {
-                return outputClips[Random.Range(0, outputPhrases.Length)];
+                return outputAudioClipList[Random.Range(0, outputPhrases.Length)];
             }
             else if (phraseNumber > outputPhrases.Length-1) //if number is longer than list, return last
             {
-                return outputClips[outputPhrases.Length];
+                return outputAudioClipList[outputPhrases.Length];
             }
             else  //return specifically requested number
             {
-                return outputClips[phraseNumber];
+                return outputAudioClipList[phraseNumber];
             }
         }
 

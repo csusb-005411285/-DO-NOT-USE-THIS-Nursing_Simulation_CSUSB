@@ -10,11 +10,8 @@ public static class CloudManager	//TODO inactivity timeout
     private static int maxPollyThreads = 9;
     private static int runningPollyThreads = 0;
     private static Thread pollyThread = new Thread(pollyJob);
+    /// holds queue of strings to be run in polly threads
     private static Queue pollyJobQueue = new Queue();
-
-    //private static Thread pollyThreadArray = new Thread(() => pollyJob(textToSpeechInput));
-    //pollyThreadArray.Start();
-
 
     ///helper class for safely starting polly threads
     private static void pollyJob(object pollyInputText)
@@ -23,23 +20,35 @@ public static class CloudManager	//TODO inactivity timeout
         runningPollyThreads--;
     }
 
-    /// spawns a thread to request text-to-speech audio from AWSPolly.
+    /// queues a thread to request text-to-speech audio from AWSPolly.
     /// <param name="textToSpeechInput">text that will be converted into audio</param>
     public static void startPollyJob(string textToSpeechInput)
     {
         pollyJobQueue.Enqueue(textToSpeechInput);
-        if (runningPollyThreads < maxPollyThreads)
+        if (runningPollyThreads < maxPollyThreads)  //if there are threads avalible
         {
-            runningPollyThreads++;
-
-            pollyThread = new Thread(() => pollyJob(textToSpeechInput));
-
-            //TODO test this
+            while (runningPollyThreads < maxPollyThreads && pollyJobQueue.Count != 0) //try to empty queue into threads
+            {
+                runningPollyThreads++;
+                pollyThread = new Thread(() => pollyJob(pollyJobQueue.Dequeue()));
+                //TODO test this
+            }
         }
     }
 
-    public static void joinPollyJobs()
+    /// runs jobs from pollyqueue and returns true when all jobs have completed
+    /// <returns>returns true when all bobs have been completed</returns>
+    public static bool joinPollyJobs()
     {
-        ThreadPool.QueueUserWorkItem(_ => pollyJob());
+        if (pollyJobQueue.Count == 0)
+        {
+            return true;
+        }
+        if (runningPollyThreads < maxPollyThreads)
+        {
+            runningPollyThreads++;
+            pollyThread = new Thread(() => pollyJob(pollyJobQueue.Dequeue()));
+        }
+        return false;
     }
 }

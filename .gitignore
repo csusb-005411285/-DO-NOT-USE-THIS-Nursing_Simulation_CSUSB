@@ -35,3 +35,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Project Specific Ignores
+*GeneratedOutput/
+*GeneratedOutput.meta
+*_[Tt]est.cs*

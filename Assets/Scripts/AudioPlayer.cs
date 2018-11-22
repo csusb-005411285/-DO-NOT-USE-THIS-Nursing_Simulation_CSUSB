@@ -57,7 +57,14 @@ public class AudioPlayer : MonoBehaviour
     /// </summary>
     private WWW GetAIAudioClip()
     {
-        www = new WWW(Directory.GetTempDirectory() + sampleClips[Random.Range(0, sampleClips.Count)]);
+        if (sampleClips.Count > 0)
+        {
+            www = new WWW(Directory.GetTempDirectory() + sampleClips[Random.Range(0, sampleClips.Count)]);
+        }
+        else
+        {
+            www = new WWW(Directory.GetTempDirectory());
+        }
         Debug.Log(www.url);
 
         return www;
@@ -74,8 +81,11 @@ public class AudioPlayer : MonoBehaviour
         Debug.Log(www.isDone);
         if (www.isDone)
         {
-            sampleClip = www.GetAudioClip(false, true);
-            a.PlayOneShot(sampleClip);
+            if (www.GetAudioClip())
+            {
+                sampleClip = www.GetAudioClip(false, true);
+                a.PlayOneShot(sampleClip);
+            }
         }
     }
 }

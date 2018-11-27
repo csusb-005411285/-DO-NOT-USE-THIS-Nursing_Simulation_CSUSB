@@ -8,6 +8,7 @@ namespace Speech
     public class SpeechOutput : ScriptableObject
     {
         /// list of similar phrases for output
+        [TextArea]
         public string[] outputPhrases = new string[1];
         /// array for holding outputClips for character
         public OutputClip[] outputAudioClipList;

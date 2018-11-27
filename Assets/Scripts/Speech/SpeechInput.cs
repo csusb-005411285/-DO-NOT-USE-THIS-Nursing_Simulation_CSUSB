@@ -7,6 +7,7 @@ namespace Speech
     public class SpeechInput : ScriptableObject
     {
         /// list of similar phrases for input
+        [TextArea]
         public string[] inputPhrases = new string[1];
     }
 }

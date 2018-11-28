@@ -72,6 +72,11 @@ namespace Speech
 
             for (int i = 0; i < speechOutput.outputPhrases.Length; i++) //for each output Phrase, create OutputClip and generate Audio
             {
+                if (speechOutput.outputPhrases[i] == "")
+                {   //if empty text box, alert user and skip it
+                    Debug.LogError(thisObjectName+": Has empty output phrases.");
+                    continue;
+                }
                 if (preventPollyAudioGeneration == false)
                 {
                     CloudManager.StartPollyJob(speechOutput.outputPhrases[i]);
@@ -95,7 +100,10 @@ namespace Speech
 
             for (int i = 0; i < speechOutput.outputPhrases.Length; i++) //for each output Phrase, attach audio to OutputClip
             {
-                //TODO attach audio files to audio objects
+                if (speechOutput.outputPhrases[i] == "")
+                {   //if empty text box, skip it
+                    continue;
+                }
                 AudioClip outputAudio = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Audio/GeneratedOutput/" +
                     CharacterConfig.currentCharacter.name + "/" + speechOutput.outputPhrases[i] + ".mp3", typeof(AudioClip));
                 if (outputAudio == null)

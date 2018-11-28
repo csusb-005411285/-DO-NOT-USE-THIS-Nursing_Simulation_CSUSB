@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Speech
@@ -21,9 +23,11 @@ namespace Speech
         {
             if (outputAudioClipList.Length == 0)
             {
+#if UNITY_EDITOR
                 SerializedObject serializedObject1 = new SerializedObject(this);
                 Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue +
                     " has no attached audio clips in outputAudioClipList[], Generate or attach audioClips to fix");
+#endif
                 return null;
             }
             int characterArraySelection = CharacterConfig.currentCharacter.characterNumber;

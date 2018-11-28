@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEditor;
 
+//FIXME bug when default is not bob
+//FIXME bug not attaching all audio files when generate all is selected
+
 namespace Speech
 {
     [CustomEditor(typeof(SpeechOutput), true)]//TODO see if custom editor can be toggled

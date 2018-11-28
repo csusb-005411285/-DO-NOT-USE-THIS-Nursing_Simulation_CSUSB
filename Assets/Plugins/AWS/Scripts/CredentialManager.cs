@@ -50,8 +50,10 @@ namespace AWS
             }
         }
 
-        //FIXME private
-        public static void LoadCredentialsFromConfigFile()
+        //=======================================================================================================
+        //SharpConfig related stuff
+
+        private static void LoadCredentialsFromConfigFile()
         {
 
             string settingsFileName = "AWS_CONFIG.cfg";

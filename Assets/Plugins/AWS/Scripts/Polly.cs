@@ -14,16 +14,20 @@ namespace AWS
             pc = new AmazonPollyClient(CredentialManager.getCredential(), CredentialManager.getRegionEndpoint());
         }
 
-        public static void runPolly(string inputText)   //TODO make polly config settings accessible from editor [sreq.XXXX]
+        public static void RunPolly(string pollyText)
         {
+            string currentCharacterName = CharacterConfig.currentCharacter.name;
+
             SynthesizeSpeechRequest sreq = new SynthesizeSpeechRequest();
-            sreq.Text = inputText;
+            sreq.Text = pollyText;
             sreq.OutputFormat = OutputFormat.Mp3;
-            sreq.VoiceId = VoiceId.Matthew;
+            sreq.VoiceId = CharacterConfig.currentCharacter.pollyVoiceId;
             SynthesizeSpeechResponse sres = pc.SynthesizeSpeech(sreq);
 
-            using (var fileStream = File.Create(@"PollyOutput.mp3"))
+            string newDirectory = Tools.Directory.GetHomeDirectory() + @"\Assets\Audio\GeneratedOutput\"+currentCharacterName+@"\";
+            System.IO.Directory.CreateDirectory(newDirectory);
 
+            using (var fileStream = File.Create(newDirectory+pollyText+".mp3"))
             {
                 sres.AudioStream.CopyTo(fileStream);
                 fileStream.Flush();

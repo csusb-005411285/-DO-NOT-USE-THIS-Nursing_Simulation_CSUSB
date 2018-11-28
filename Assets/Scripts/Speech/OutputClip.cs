@@ -10,7 +10,7 @@ namespace Speech
         [TextArea]
         public string outputPhrase;
         /// list of audio clips for specific phrase, [0]=first character, [1]=second character, etc...
-        public string[] outputAudioClips = new string[1];  //FIXME audioclip[]
+        public AudioClip[] outputAudioClips;
     }
 }
 

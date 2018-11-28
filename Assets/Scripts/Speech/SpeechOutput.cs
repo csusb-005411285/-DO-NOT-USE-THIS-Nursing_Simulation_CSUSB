@@ -22,7 +22,7 @@ namespace Speech
             if (outputAudioClipList.Length == 0)
             {
                 SerializedObject serializedObject1 = new SerializedObject(this);
-                Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue + 
+                Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue +
                     " has no attached audio clips in outputAudioClipList[], Generate or attach audioClips to fix");
                 return null;
             }
@@ -32,7 +32,7 @@ namespace Speech
             {
                 return outputAudioClipList[Random.Range(0, outputPhrases.Length)];
             }
-            else if (phraseNumber > outputPhrases.Length-1) //if number is longer than list, return last
+            else if (phraseNumber > outputPhrases.Length - 1) //if number is longer than list, return last
             {
                 return outputAudioClipList[outputPhrases.Length];
             }
@@ -41,6 +41,5 @@ namespace Speech
                 return outputAudioClipList[phraseNumber];
             }
         }
-
     }
 }

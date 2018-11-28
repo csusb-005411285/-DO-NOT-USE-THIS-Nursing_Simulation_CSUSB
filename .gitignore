@@ -39,4 +39,6 @@ sysinfo.txt
 # Project Specific Ignores
 *GeneratedOutput/
 *GeneratedOutput.meta
+*GeneratedOutputClips/
+*GeneratedOutputClips.meta
 *_[Tt]est.cs*

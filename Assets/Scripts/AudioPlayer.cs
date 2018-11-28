@@ -9,96 +9,83 @@ using UnityEngine;
 public class AudioPlayer : MonoBehaviour
 {
     public AudioClip sampleClip;
+    public List<string> sampleClips = new List<string>();
     public AudioSource a;
-    public string audioFileName;
-    public string audioTypeExtension = ".mp3";
-    public AudioType audioType = AudioType.MPEG;
 
     private WWW www;
 
     // Use this for initialization
     void Start ()
     {
-        Debug.Log(Directory.GetTempDirectory());
-	}
+        FindAIAudioFiles();
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         PlayAudioClip();
+    }
 
-        SetAudioClip();
+    /// <summary>
+    /// Sets the list of names of all existing audioClip of .wav or .mp3 extension
+    /// </summary>
+    private void FindAIAudioFiles()
+    {
+        Debug.Log(Directory.GetTempDirectory());
+        foreach (string file in System.IO.Directory.GetFiles(Directory.GetTempDirectory()))
+        {
+            if (file.EndsWith(".wav") || file.EndsWith(".mp3"))
+            {
+                string clipName = System.IO.Path.GetFileName(file);
+                sampleClips.Add(clipName);
+                Debug.Log(clipName);
+            }
+        }
     }
 
     /// <summary>
     /// Test to play audio clip (will most likely be a public function that will call the coroutine in one frame)
     /// </summary>
-    private void PlayAudioClip()
+    public void PlayAudioClip()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            StartCoroutine(DownloadAudioClip());
-        }
+        if (Input.GetKeyDown(KeyCode.Return))   // Comment this out when using for calling outside class
+        StartCoroutine(DownloadAudioClip());
     }
 
     /// <summary>
     /// Test to set the audioClip path (will likely be a public function that will be called once)
     /// </summary>
-    private void SetAudioClip()
+    private WWW GetAIAudioClip()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (sampleClips.Count > 0)
         {
-            SetAudioTypeExtension();
-
-            www = new WWW(Directory.GetTempDirectory() + "ring" + audioTypeExtension);
-            Debug.Log(www.url);
+            www = new WWW(Directory.GetTempDirectory() + sampleClips[Random.Range(0, sampleClips.Count)]);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else
         {
-            SetAudioTypeExtension();
-
-            www = new WWW(Directory.GetTempDirectory() + "menuselect" + audioTypeExtension);
-            Debug.Log(www.url);
+            www = new WWW(Directory.GetTempDirectory());
         }
+        Debug.Log(www.url);
+
+        return www;
     }
-
-    /// <summary>
-    /// Sets the AudioType setting to check for either .mp3 or .wav files
-    /// </summary>
-    private void SetAudioTypeExtension()
-    {
-        switch(audioType)
-        {
-            case AudioType.MPEG:
-                audioTypeExtension = ".mp3";
-                break;
-            case AudioType.WAV:
-                audioTypeExtension = ".wav";
-                break;
-        }
-    }
-
+    
     /// <summary>
     /// Coroutine that waits for the www path, checks if it downloaded the audioClip, and plays audioClip in one shot
     /// </summary>
     /// <returns></returns>
     private IEnumerator DownloadAudioClip()
     {
+        www = GetAIAudioClip();
         yield return www;
         Debug.Log(www.isDone);
         if (www.isDone)
         {
-            sampleClip = www.GetAudioClip(false, true, audioType);
-            a.PlayOneShot(sampleClip);
+            if (www.GetAudioClip())
+            {
+                sampleClip = www.GetAudioClip(false, true);
+                a.PlayOneShot(sampleClip);
+            }
         }
-    }
-
-    /// <summary>
-    /// A public function that allows a string to be passed in the argument to select the audioClip that will be played.
-    /// </summary>
-    /// <param name="clipName"></param>
-    public void SetAudioClipName(string clipName)
-    {
-        audioFileName = clipName;
     }
 }

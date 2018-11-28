@@ -35,3 +35,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Project Specific Ignores
+*GeneratedOutput/
+*GeneratedOutput.meta
+*GeneratedOutputClips/
+*GeneratedOutputClips.meta
+*_[Tt]est.cs*
+AWS_CONFIG.cfg

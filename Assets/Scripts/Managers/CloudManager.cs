@@ -16,7 +16,7 @@ public static class CloudManager	//TODO inactivity timeout
     ///helper class for safely starting polly threads
     private static void PollyJob(object pollyInputText)
     {
-        Polly.runPolly((string)pollyInputText);
+        Polly.RunPolly((string)pollyInputText);
         runningPollyThreads--;
     }
 
@@ -31,14 +31,15 @@ public static class CloudManager	//TODO inactivity timeout
             {
                 runningPollyThreads++;
                 pollyThread = new Thread(() => PollyJob(pollyJobQueue.Dequeue()));
+                pollyThread.Start();
                 //TODO test this
             }
         }
     }
 
-    /// runs jobs from pollyqueue and returns true when all jobs have completed
+    /// runs jobs from pollyQueue and returns true when all jobs have completed
     /// <returns>returns true when all bobs have been completed</returns>
-    public static bool JoinPollyJobs()
+    public static bool WaitForPollyJobs()
     {
         if (pollyJobQueue.Count == 0)
         {

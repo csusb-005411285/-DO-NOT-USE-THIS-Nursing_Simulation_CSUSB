@@ -1,4 +1,4 @@
-﻿//#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -14,8 +14,10 @@ namespace Speech
 
         //TODO properly generate and attach audio for all output objects
        
-        /// set true to force regerate all Generated AudioClips
+        /// set true to force regenerate all Generated AudioClips
         public static bool forceRegenerateAudioClips = false;
+        /// set integer of character whose voices you want to generate
+        public static int characterNumber = 0;
 
         /// only runs in editor, generates and populates all sound clips
         public static void GenerateClips()
@@ -54,14 +56,14 @@ namespace Speech
                             }
                             OutputClip currentExistingSpeechOutputObject = (OutputClip)AssetDatabase.LoadAssetAtPath(
                                 AssetDatabase.GUIDToAssetPath(existingSpeechOutputObject), typeof(OutputClip));
-                            prepareOutputClip(currentExistingSpeechOutputObject, currentSpeechOutputObject.outputPhrases[i]);
+                            PrepareOutputClip(currentExistingSpeechOutputObject, currentSpeechOutputObject.outputPhrases[i]);
                             //TODO queue OutputClip for population
                         }
                     }
                     else {  //generate new clip:
-                        Debug.Log("Generating: "+ objectName+": "+currentOutputPhrase);
+                        Debug.Log("Generating: "+objectName+": "+currentOutputPhrase);
                         OutputClip myClip = new OutputClip();
-                        prepareOutputClip(myClip, currentSpeechOutputObject.outputPhrases[i]);
+                        PrepareOutputClip(myClip, currentSpeechOutputObject.outputPhrases[i]);
 
                         string newDirectory = Tools.Directory.GetHomeDirectory() + @"Assets\SpeechIO\OutputClips\" + objectName + @"\";
                         System.IO.Directory.CreateDirectory(newDirectory);
@@ -73,17 +75,18 @@ namespace Speech
                 }
             }
 
-            while (CloudManager.JoinPollyJobs() != true)
+            while (CloudManager.WaitForPollyJobs() != true)
             {
                 System.Threading.Thread.Sleep(100);
             }
-            //TODO join all threads and attach audio to OutputClips
+
+            //TODO attach audio to SpeechOutputClips
 
             Debug.Log("Complete! check console output for any errors");
             //TODO make this a popup?^
         }
         
-        private static void prepareOutputClip(OutputClip clip, string phrase)
+        private static void PrepareOutputClip(OutputClip clip, string phrase)
         {
             clip.outputPhrase = phrase;
             //TODO queue OutputClip here?
@@ -106,4 +109,4 @@ namespace Speech
 }
 //TODO test edge case of multiple identical phrases
 
-//#endif
+#endif

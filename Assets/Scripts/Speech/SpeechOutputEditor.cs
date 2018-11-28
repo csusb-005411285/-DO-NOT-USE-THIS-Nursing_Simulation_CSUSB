@@ -1,51 +1,69 @@
-﻿//using UnityEngine;
-//using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEngine;
+using UnityEditor;
 
-//namespace Speech
-//{
-//    [CustomEditor(typeof(SpeechOutput), true)]
-//    public class SpeechOutputEditor : Editor
-//    {
+namespace Speech
+{
+    [CustomEditor(typeof(SpeechOutput), true)]//TODO see if custom editor can be toggled
+    public class SpeechOutputEditor : Editor
+    {
+        private int characterVoiceSelection = 0;
+        //TODO save current character, generate for all characters.
 
-//        //TODO create button to generate and play speech sample in editor properly
-//        //will need to extend cloud manager for this purpose
+        private SpeechOutput speechOutput;
+        private string thisObjectName;
 
-//        //TODO reduce number of ((casts)) in this file
+        void OnEnable()
+        {
+            speechOutput = ((SpeechOutput)target);
+            SerializedObject serializedObject1 = new SerializedObject(speechOutput);
+            thisObjectName = serializedObject1.FindProperty("m_Name").stringValue;
+        }
 
-//        //int AudioClipSelection = 0;
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
 
-//        public override void OnInspectorGUI()
-//        {
-//            DrawDefaultInspector();
+            if (GUILayout.Button("Generate Audio Clips"))
+            {
+                speechOutput.outputAudioClipList = new OutputClip[speechOutput.outputPhrases.Length];
 
-//            if (GUILayout.Button("PreviewClip"))
-//            {
-//                //Debug.Log("Preview Clip: " + (string)((SpeechOutput)target).OutputPhrases[AudioClipSelection]);
-//                Debug.LogWarning("preview not implemented");
-//                //TODO
-//            }
+                string newDirectory = Tools.Directory.GetHomeDirectory() + @"Assets\SpeechIO\OutputClips\" + thisObjectName + @"\";
+                if (System.IO.Directory.Exists(newDirectory))
+                {
+                    System.IO.Directory.Delete(newDirectory, true);
+                }
+                System.IO.Directory.CreateDirectory(newDirectory);
+                AssetDatabase.Refresh();
 
-//            //string[] OutputPhraseArray = ((SpeechOutput)target).OutputPhrases;
+                for (int i = 0; i < speechOutput.outputPhrases.Length; i++) //for each output Phrase, create OutputClip and generate Audio
+                {
+                    //Debug.Log("Generating audio for string: \"" + speechOutput.outputPhrases[i] + "\"");
+                    CloudManager.StartPollyJob(speechOutput.outputPhrases[i]);
 
-//            //AudioClipSelection = EditorGUILayout.IntField("selection:", AudioClipSelection);
-//            //if (AudioClipSelection > OutputPhraseArray.Length)
-//            //{
-//            //    string tmp = "Selection Out of Bounds";
-//            //    EditorGUILayout.TextField("ERROR:", tmp);
-//            //}
+                    OutputClip myClip = ScriptableObject.CreateInstance<OutputClip>();
+                    //PrepareOutputClip(myClip, currentSpeechOutputObject.outputPhrases[i]);
 
-//            //if (OutputPhraseArray.Length > ((SpeechOutput)target).OutputClips.Length)
-//            //{
-//            //    AudioClip[] temp = new AudioClip[OutputPhraseArray.Length];
-//            //    ((SpeechOutput)target).OutputClips.CopyTo(temp, 0);
-//            //    ((SpeechOutput)target).OutputClips = temp;
-//            //}
-//            //else if (OutputPhraseArray.Length < ((SpeechOutput)target).OutputClips.Length)
-//            //{
-//            //    SerializedObject serializedObject1 = new UnityEditor.SerializedObject(((SpeechOutput)target));
-//            //    Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue +
-//            //        ": OutputPhrasesArray shorter than OutputClipArray. Reduce the OutputClip Array size.");
-//            //}
-//        }
-//    }
-//}
+                    AssetDatabase.CreateAsset(myClip, "Assets/SpeechIO/OutputClips/"+thisObjectName+"/"+speechOutput.outputPhrases[i]+".asset");
+                    speechOutput.outputAudioClipList[i] = myClip;
+
+                    //set OutputClip parameters
+                    myClip.outputPhrase = speechOutput.outputPhrases[i];
+                }
+
+                while (CloudManager.WaitForPollyJobs() != true)    //wait for audio clips to download
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
+                for (int i = 0; i < speechOutput.outputPhrases.Length; i++) //for each output Phrase, attach audio to OutputClip
+                {
+                    //TODO attach audio files to audio objects
+                }
+                AssetDatabase.Refresh();
+            }
+
+        }
+    }
+}
+#endif

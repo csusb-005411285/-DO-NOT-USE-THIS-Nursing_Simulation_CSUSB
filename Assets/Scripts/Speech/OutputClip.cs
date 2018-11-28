@@ -3,7 +3,6 @@
 namespace Speech
 {
     /// Scriptable object for holding output audio clips for a specific phrase
-    [CreateAssetMenu(menuName = "Speech/Output Clip")]
     public class OutputClip : ScriptableObject
     {
         //TODO editor warning explaining the placement of audio files in array (how each item corresponds with a character)

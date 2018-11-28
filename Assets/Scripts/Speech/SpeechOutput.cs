@@ -7,6 +7,7 @@ namespace Speech
     [CreateAssetMenu(menuName = "Speech/Speech Output Object")]
     public class SpeechOutput : ScriptableObject
     {
+
         /// list of similar phrases for output
         [TextArea]
         public string[] outputPhrases = new string[1];
@@ -22,10 +23,10 @@ namespace Speech
             {
                 SerializedObject serializedObject1 = new SerializedObject(this);
                 Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue + 
-                    " has no attached audio clips in outputAudioClipList[], use GenerateOutputClips to fix");
+                    " has no attached audio clips in outputAudioClipList[], Generate or attach audioClips to fix");
                 return null;
             }
-            int characterArraySelection = CharacterManager.currentCharacter.characterNumber;
+            int characterArraySelection = CharacterConfig.currentCharacter.characterNumber;
 
             if (phraseNumber < 0)   //default, return random clip from list
             {

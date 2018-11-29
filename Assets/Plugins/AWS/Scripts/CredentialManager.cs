@@ -1,4 +1,7 @@
-﻿using SharpConfig; // https://github.com/cemdervis/SharpConfig
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using SharpConfig; // https://github.com/cemdervis/SharpConfig
 using System.IO;
 using Amazon.Runtime;
 
@@ -15,29 +18,28 @@ namespace AWS
 
         private static AWSCredentials AWSCredintial;
 
-        static CredentialManager() {
-            UpdateCredentials();
-        }
-
         /// returns user AWSCredential object
         public static AWSCredentials getCredential()
         {
+            UpdateCredentials();
             return AWSCredintial;
         }
 
         /// returns user AWSRegionEndpoint object
         public static Amazon.RegionEndpoint getRegionEndpoint()
         {
+            UpdateCredentials();
             return AWSregionEndpoint;
         }
 
+        /// loads credential data from AWS_CREDENTIALS.cfg file
         private static void UpdateCredentials()
         {
             LoadCredentialsFromConfigFile();
 
             if (AWSaccessKey == "")
             {
-                UnityEngine.Debug.LogError("AWS credentials file is empty!");
+                UnityEngine.Debug.LogError("AWS credentials missing in /AWS_CONFIG.cfg");
             }
 
             if (AWSsecretToken != "")
@@ -78,4 +80,14 @@ namespace AWS
         }
 
     }
+
+#if UNITY_EDITOR
+    [InitializeOnLoad]
+    class CredentialManagerInitializer
+    {
+        static CredentialManagerInitializer(){
+            CredentialManager.getCredential();
+        }
+    }
+#endif
 }

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
@@ -13,6 +13,7 @@ namespace Speech
         /// list of similar phrases for output
         [TextArea]
         public string[] outputPhrases = new string[1];
+        
         /// array for holding outputClips for character
         public OutputClip[] outputAudioClipList;
 
@@ -30,7 +31,6 @@ namespace Speech
 #endif
                 return null;
             }
-            int characterArraySelection = CharacterConfig.currentCharacter.characterNumber;
 
             if (phraseNumber < 0)   //default, return random clip from list
             {

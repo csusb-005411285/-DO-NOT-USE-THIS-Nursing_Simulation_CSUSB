@@ -3,12 +3,12 @@ using NAudio.Wave;
 
 namespace microphone
 {
-    public class Microphone
+    public static class Microphone
     {
-        public WaveIn waveSource = null;
-        public WaveFileWriter waveFile = null;
+        public static WaveIn waveSource = null;
+        public static WaveFileWriter waveFile = null;
 
-        private void StartRecording()
+        public static void StartRecording()
         {
             waveSource = new WaveIn();
             waveSource.WaveFormat = new WaveFormat(44100, 1);
@@ -17,18 +17,18 @@ namespace microphone
             waveSource.RecordingStopped += new EventHandler<StoppedEventArgs>(waveSource_RecordingStopped);
 
             //TODO temp folder? maybe a static class for getting temp file storage location
-            waveFile = new WaveFileWriter(@"micInput.wav", waveSource.WaveFormat);
+            waveFile = new WaveFileWriter(@"D:/micInput.wav", waveSource.WaveFormat);
 
             waveSource.StartRecording();
         }
 
-        private void StopRecording()
+        public static void StopRecording()
         {
             waveSource.StopRecording();
             waveFile.Close();
         }
 
-        void waveSource_DataAvailable(object sender, WaveInEventArgs e)
+        static void waveSource_DataAvailable(object sender, WaveInEventArgs e)
         {
             if (waveFile != null)
             {
@@ -37,7 +37,7 @@ namespace microphone
             }
         }
 
-        void waveSource_RecordingStopped(object sender, StoppedEventArgs e)
+        static void waveSource_RecordingStopped(object sender, StoppedEventArgs e)
         {
             if (waveSource != null)
             {

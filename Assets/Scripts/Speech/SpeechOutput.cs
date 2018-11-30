@@ -12,10 +12,10 @@ namespace Speech
 
         /// list of similar phrases for output
         [TextArea]
-        public string[] outputPhrases = new string[1];
+        public readonly string[] outputPhrases = new string[1];
         
         /// array for holding outputClips for character
-        public OutputClip[] outputAudioClipList;
+        public OutputClip[] outputAudioClipList = new OutputClip[0];
 
         /// returns OutputClip of a phrase in OutputPhrases array
         /// <param name="phraseNumber">(optional) defaults to random phrase from OutputPhrases array, can specify specific phrase to output</param>
@@ -26,7 +26,7 @@ namespace Speech
             {
 #if UNITY_EDITOR
                 SerializedObject serializedObject1 = new SerializedObject(this);
-                Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue +
+                Debug.LogWarning(serializedObject1.FindProperty("m_Name").stringValue +
                     " has no attached audio clips in outputAudioClipList[], Generate or attach audioClips to fix");
 #endif
                 return null;

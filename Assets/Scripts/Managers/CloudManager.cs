@@ -9,7 +9,7 @@ public static class CloudManager	//TODO inactivity timeout
 
     private static int maxPollyThreads = 9;
     private static int runningPollyThreads = 0;
-    private static Thread pollyThread = new Thread(PollyJob);
+    private static Thread pollyThread;// = new Thread(PollyJob);
     /// holds queue of strings to be run in polly threads
     private static Queue pollyJobQueue = new Queue();
 

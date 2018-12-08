@@ -11,11 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f945e777233a59f4aba40aeca29093a6, type: 3}
   m_Name: AIFSM
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-3479.0,"y":-3675.0},"zoomFactor":0.7500097,"nodes":[{"_nestedBT":{"_value":1},"_position":{"x":5358.0,"y":5058.0},"_name":"Wait
-    and Listen","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":1},"_position":{"x":5088.0,"y":5193.0},"_name":"Greet","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_nestedBT":{"_value":2},"_position":{"x":5629.0,"y":5195.0},"_name":"Explain","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"6"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_sourceNode":{"$ref":"6"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.StateMachines.FSM","translation":{"x":-4719.0,"y":-4867.0},"nodes":[{"_nestedBT":{"_value":1},"_position":{"x":5358.0,"y":5058.0},"_name":"Wait
+    and Listen","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"2"},{"_nestedBT":{"_value":2},"_position":{"x":5088.0,"y":5193.0},"_name":"Greet","$type":"NodeCanvas.StateMachines.NestedBTState","$id":"4"},{"_nestedBT":{"_value":3},"_position":{"x":5629.0,"y":5195.0},"_name":"Explain","$type":"NodeCanvas.StateMachines.NestedBTState"}],"connections":[{"_condition":{"valueA":{"_name":"Global/isAIDialogueFinished","_targetVariableID":"f8868f66-ea90-4410-a36a-d0a3c2610bf7"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"4"},"$type":"NodeCanvas.StateMachines.FSMConnection"},{"_condition":{"valueA":{"_name":"Global/isAIDialogueFinished","_targetVariableID":"f8868f66-ea90-4410-a36a-d0a3c2610bf7"},"valueB":{"_value":true},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_sourceNode":{"$ref":"4"},"_targetNode":{"$ref":"2"},"$type":"NodeCanvas.StateMachines.FSMConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
     Blackboard","_variables":{}}}'
   _objectReferences:
   - {fileID: 0}
+  - {fileID: 11400000, guid: da6c93545c0d9e24e9ceddb50426c1ee, type: 2}
   - {fileID: 11400000, guid: 310f099dbde20e14898a141cd98f1a3e, type: 2}
   - {fileID: 11400000, guid: ed10b603dc8b84447a6ea02bd8572006, type: 2}
   _deserializationFailed: 0

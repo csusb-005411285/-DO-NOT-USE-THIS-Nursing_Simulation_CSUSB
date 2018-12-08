@@ -25,5 +25,6 @@ public class PatientAI : MonoBehaviour
     {
         globalBlackboard.SetValue("patientDialogue", dialogueString);
         globalBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+        globalBlackboard.SetValue("isAIDialogueFinished", true);
     }
 }

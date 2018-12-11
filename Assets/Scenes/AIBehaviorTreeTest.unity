@@ -401,8 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundGraphSerialization: 
   boundGraphObjectReferences: []
-  enableAction: 0
-  disableAction: 0
+  enableAction: 1
+  disableAction: 2
   _graph: {fileID: 11400000, guid: 310f099dbde20e14898a141cd98f1a3e, type: 2}
   _blackboard: {fileID: 192544450}
 --- !u!114 &192544452

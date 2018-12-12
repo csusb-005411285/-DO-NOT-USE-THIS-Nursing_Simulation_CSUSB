@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
 
+/// <summary>
+/// Class to set the necessary dialogue for AI patient
+/// </summary>
 public class PatientAI : MonoBehaviour
 {
     [Header("Dialogue for AI: ")]
     public string dialogueString;                   // String data for the dialogue
     public AudioClip dialogueAudioClip;             // AudioClip data for the dialogue
 
-    private GlobalBlackboard globalBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
+    private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
+
+    public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
 
     /// <summary>
     /// Initializes variables upon scene awake
     /// </summary>
     private void Awake()
     {
-        globalBlackboard = FindObjectOfType<GlobalBlackboard>();    
+        gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
     }
 
     /// <summary>
@@ -40,8 +45,15 @@ public class PatientAI : MonoBehaviour
     /// </summary>
     public void SetDialogue()
     {
-        globalBlackboard.SetValue("patientDialogue", dialogueString);
-        globalBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+        if (gBlackboard)
+        {
+            gBlackboard.SetValue("patientDialogue", dialogueString);
+            gBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+        }
+        else
+        {
+            Debug.LogError("Cannot find global blackboard for setting dialogue!");
+        }
     }
 
     /// <summary>
@@ -50,6 +62,13 @@ public class PatientAI : MonoBehaviour
     /// </summary>
     public void AIDialogueFinished()
     {
-        globalBlackboard.SetValue("isAIDialogueFinished", true);
+        if (gBlackboard)
+        {
+            gBlackboard.SetValue("isAIDialogueFinished", true);
+        }
+        else
+        {
+            Debug.LogError("Cannot find global blackboard for setting dialogue!");
+        }
     }
 }

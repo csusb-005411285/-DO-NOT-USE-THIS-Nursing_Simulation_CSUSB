@@ -11,12 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
   m_Name: AI_Greet
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5449.0,"y":-5237.0},"nodes":[{"_condition":{"valueA":{"_name":"Global/isAIDialogueFinished","_targetVariableID":"f8868f66-ea90-4410-a36a-d0a3c2610bf7"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5793.0,"y":5345.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"PatientAI|SetDialogue|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_value":1},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"dialogueTreeController":{"_value":2},"$type":"NodeCanvas.Tasks.Actions.StartDialogueTree"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5785.0,"y":5554.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"},{"_position":{"x":5690.0,"y":5242.0},"$type":"NodeCanvas.BehaviourTrees.Sequencer"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-5620.0,"y":-5314.0},"nodes":[{"_condition":{"valueA":{"_name":"Global/isAIDialogueFinished","_targetVariableID":"f8868f66-ea90-4410-a36a-d0a3c2610bf7"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5793.0,"y":5403.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"PatientAI|SetDialogue|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"dialogueTreeController":{"_name":"AIDialogue","_targetVariableID":"b267d256-bbe7-4881-9a31-e9460dfc0783"},"$type":"NodeCanvas.Tasks.Actions.StartDialogueTree"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5784.0,"y":5554.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
     Blackboard","_variables":{}},"derivedData":{"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _objectReferences: []
   _deserializationFailed: 0
   repeat: 0
   updateInterval: 0

@@ -10,6 +10,9 @@ namespace AI
     /// </summary>
     public class PatientAI : MonoBehaviour
     {
+        public Speech.SpeechOrganizerArrayObject speechOrganizerList;
+        ParserManager parserManager;
+
         [Header("Dialogue for AI: ")]
         public string dialogueString;                   // String data for the dialogue
         public AudioClip dialogueAudioClip;             // AudioClip data for the dialogue
@@ -23,6 +26,7 @@ namespace AI
         /// </summary>
         private void Awake()
         {
+            parserManager = new ParserManager(speechOrganizerList);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
         }
 

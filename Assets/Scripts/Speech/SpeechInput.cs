@@ -9,5 +9,6 @@ namespace Speech
         /// list of similar phrases for input
         [TextArea]
         public string[] inputPhrases = new string[1];
+
     }
 }

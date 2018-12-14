@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01fed6522ae78549a4cff8f2a95a1af, type: 3}
+  m_Name: Greeting Organizer
+  m_EditorClassIdentifier: 
+  speechInput: {fileID: 11400000, guid: 1dd2f04e6a39dd14aa9ed257188a250e, type: 2}
+  speechOutput: {fileID: 11400000, guid: 396c306067a33b04fae65b04e323eb35, type: 2}

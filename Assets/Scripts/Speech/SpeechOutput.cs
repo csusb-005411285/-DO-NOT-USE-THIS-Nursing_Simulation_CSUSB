@@ -12,7 +12,7 @@ namespace Speech
 
         /// list of similar phrases for output
         [TextArea]
-        public readonly string[] outputPhrases = new string[1];
+        public string[] outputPhrases = new string[1];
         
         /// array for holding outputClips for character
         public OutputClip[] outputAudioClipList = new OutputClip[0];

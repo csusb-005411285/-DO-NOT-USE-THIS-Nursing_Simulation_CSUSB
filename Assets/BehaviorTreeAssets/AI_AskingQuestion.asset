@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
+  m_Name: AI_AskingQuestion
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","nodes":[{"_condition":{"valueA":{"_name":"Global/isAIDialogueFinished"},"valueB":{},"$type":"NodeCanvas.Tasks.Conditions.CheckBoolean"},"_position":{"x":5533.0,"y":5256.0},"$type":"NodeCanvas.BehaviourTrees.ConditionalEvaluator","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"AI.PatientAI|FindDialogue|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":3,"$type":"System.Int32"}}],"parameterIsByRef":[false,false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"AI.PatientAI|SetDialogue|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"dialogueTreeController":{"_name":"AIDialogue"},"$type":"NodeCanvas.Tasks.Actions.StartDialogueTree"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5579.0,"y":5422.0},"$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"6"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"6"},"$type":"NodeCanvas.BehaviourTrees.BTConnection"}],"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
+  _objectReferences: []
+  _deserializationFailed: 0
+  repeat: 1
+  updateInterval: 0

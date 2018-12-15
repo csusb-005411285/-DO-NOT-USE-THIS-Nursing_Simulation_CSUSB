@@ -31,12 +31,27 @@ namespace AI
         }
 
         /// <summary>
-        /// Used to find a dialogue from scriptable object
+        /// Used to find a dialogue from scriptable object hierarchy starting from "speechOragnizerList"
+        /// Element 0: Greeting Speech
+        /// Element 1: NameIntro Speech
+        /// Element 2: PlanIntro Speech
+        /// Element 3: AskingQuestions Speech
+        /// Element 4: AnsweringQuestions Speech
+        /// Element 5: AddressingIssues Speech
+        /// ...
+        /// (Elements of Speech will be added over time)
         /// </summary>
-        public void FindDialogue(Speech.OutputClip outputObject)
+        public void FindDialogue(int speechElement)
         {
-            dialogueString = outputObject.outputPhrase;
-            dialogueAudioClip = outputObject.GetAudioClip();
+            if (!speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip())
+            {
+                Debug.LogError("Cannot find OutputClip for dialogue string and audioClip! Play error string and sound instead!");
+            }
+            else
+            {
+                dialogueString = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().outputPhrase;
+                dialogueAudioClip = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().GetAudioClip();
+            }
         }
 
         /// <summary>

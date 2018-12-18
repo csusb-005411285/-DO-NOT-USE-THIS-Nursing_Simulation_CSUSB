@@ -9,7 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7281d37848e894e836d76a3d0b59b7, type: 3}
-  m_Name: PlanIntro
+  m_Name: Greeting_Input
   m_EditorClassIdentifier: 
   inputPhrases:
-  - today we will be talking about
+  - hello there
+  - Hi there
+  - Hi
+  - Greetings

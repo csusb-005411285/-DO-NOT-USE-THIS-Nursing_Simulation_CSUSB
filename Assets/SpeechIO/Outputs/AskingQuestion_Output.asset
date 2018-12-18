@@ -8,11 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7281d37848e894e836d76a3d0b59b7, type: 3}
-  m_Name: Greeting
+  m_Script: {fileID: 11500000, guid: e323c48c8e974864eab391e6865e8caa, type: 3}
+  m_Name: AskingQuestion_Output
   m_EditorClassIdentifier: 
-  inputPhrases:
-  - hello there
-  - Hi there
-  - Hi
-  - Greetings
+  outputPhrases:
+  - 
+  outputAudioClipList: []

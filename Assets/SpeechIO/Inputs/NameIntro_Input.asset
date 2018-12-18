@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b7281d37848e894e836d76a3d0b59b7, type: 3}
-  m_Name: NameIntro
+  m_Name: NameIntro_Input
   m_EditorClassIdentifier: 
   inputPhrases:
   - my name is ___

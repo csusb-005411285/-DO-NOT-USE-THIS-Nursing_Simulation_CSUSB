@@ -359,7 +359,7 @@ MonoBehaviour:
   waitInputIndicator: {fileID: 224615738111403604}
   subtitleDelays:
     characterDelay: 0.05
-    sentenceDelay: 0.5
+    sentenceDelay: 1.5
     commaDelay: 0.1
     finalDelay: 1.2
   typingSounds:
@@ -773,7 +773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -19.549927, y: 15}
+  m_AnchoredPosition: {x: -19.549805, y: 15}
   m_SizeDelta: {x: 39.1, y: 29.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224654769923545998

@@ -210,39 +210,15 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224615738111403604, guid: 8aa73cf104730404c91f90a0c58796e2,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -19.549805
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa73cf104730404c91f90a0c58796e2, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &144088226
+--- !u!114 &134521461 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: AI Dialogue DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4714.0,"y":-5047.0},"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"audioClip":{"_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},"$type":"NodeCanvas.Tasks.Actions.PlayAudioAtPosition"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
-    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5312.0,"y":5332.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5396.0,"y":5495.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
-    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
-    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 192544453}
-  - {fileID: 192544452}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Patient Ryan
-    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
-    _actorObject: {fileID: 192544452}
+  m_CorrespondingSourceObject: {fileID: 114825194443661594, guid: 02a0ca9e0d341f946bf92aa5223ab517,
+    type: 2}
+  m_PrefabInternal: {fileID: 1151950010}
+  m_Script: {fileID: 11500000, guid: c32e4b851ebd8fa4ea0645b99be1cf97, type: 3}
 --- !u!1 &169299052
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,31 +297,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1151950010}
   m_Script: {fileID: 11500000, guid: d006a595596238340869c6fb6db03963, type: 3}
---- !u!114 &588701284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: AI Dialogue DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4714.0,"y":-5047.0},"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"audioClip":{"_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},"$type":"NodeCanvas.Tasks.Actions.PlayAudioAtPosition"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
-    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5312.0,"y":5332.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5396.0,"y":5495.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"18"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"18"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
-    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
-    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 192544453}
-  - {fileID: 192544452}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Patient Ryan
-    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
-    _actorObject: {fileID: 192544452}
 --- !u!1 &687189264
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,8 +404,11 @@ MonoBehaviour:
   _serializedBlackboard: '{"_name":"Global","_variables":{"patientDialogue":{"_name":"patientDialogue","_id":"2f79fa24-241b-42ef-ac36-c154533e481e","$type":"NodeCanvas.Framework.Variable`1[[System.String,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"dialogueAudioClip":{"_name":"dialogueAudioClip","_id":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.AudioClip,
     UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"isAIDialogueFinished":{"_name":"isAIDialogueFinished","_id":"f8868f66-ea90-4410-a36a-d0a3c2610bf7","$type":"NodeCanvas.Framework.Variable`1[[System.Boolean,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
-  _objectReferences: []
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"AIDialogueTreeController":{"_value":1,"_name":"AIDialogueTreeController","_id":"89f2beda-b109-40bb-acbd-9945fa97dacc","$type":"NodeCanvas.Framework.Variable`1[[NodeCanvas.DialogueTrees.DialogueTreeController,
+    Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 134521461}
   dontDestroy: 1
 --- !u!4 &748127290
 Transform:
@@ -512,10 +466,35 @@ Prefab:
         type: 2}
       propertyPath: _graph
       value: 
-      objectReference: {fileID: 588701284}
+      objectReference: {fileID: 1531224751}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a0ca9e0d341f946bf92aa5223ab517, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1531224751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: AI Dialogue DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4852.0,"y":-5173.0},"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"audioClip":{"_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},"$type":"NodeCanvas.Tasks.Actions.PlayAudioAtPosition"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
+    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5313.0,"y":5332.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5396.0,"y":5495.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"33"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"33"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
+    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":2}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 192544453}
+  - {fileID: 192544452}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Patient Ryan
+    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
+    _actorObject: {fileID: 192544452}
 --- !u!1 &1665239406
 GameObject:
   m_ObjectHideFlags: 0

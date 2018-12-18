@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b01fed6522ae78549a4cff8f2a95a1af, type: 3}
-  m_Name: Greeting Organizer
+  m_Name: PlanIntro_Organizer
   m_EditorClassIdentifier: 
-  speechInput: {fileID: 11400000, guid: 1dd2f04e6a39dd14aa9ed257188a250e, type: 2}
-  speechOutput: {fileID: 11400000, guid: 396c306067a33b04fae65b04e323eb35, type: 2}
+  speechInput: {fileID: 11400000, guid: 4885bbcdec40b9342b41dba7cd92b7e7, type: 2}
+  speechOutput: {fileID: 11400000, guid: 61ce6700dd31b41469665782b44cbe7a, type: 2}

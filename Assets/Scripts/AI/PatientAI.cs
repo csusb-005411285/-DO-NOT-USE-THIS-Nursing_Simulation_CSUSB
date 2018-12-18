@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NodeCanvas.Framework;
+using NodeCanvas.BehaviourTrees;
 
 namespace AI
 {
@@ -10,13 +11,21 @@ namespace AI
     /// </summary>
     public class PatientAI : MonoBehaviour
     {
-        public Speech.SpeechOrganizerArrayObject speechOrganizerList;
-        ParserManager parserManager;
+        [Header("Dialogue Thread Checks for AI: ")]
+        public bool[] boolArrayTest;
+        public bool isGreetDialogue;
+        public bool isNameIntroDialogue;
+        public bool isPlanIntroDialogue;
+        public bool isAskingQuestionDialogue;
+        public bool isAnsweringQuestionDialogue;
 
-        [Header("Dialogue for AI: ")]
+        [Header("Dialogue Data for AI: ")]
+        public Speech.SpeechOrganizerArrayObject speechOrganizerList;
+
         public string dialogueString;                   // String data for the dialogue
         public AudioClip dialogueAudioClip;             // AudioClip data for the dialogue
 
+        private ParserManager parserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
@@ -28,6 +37,18 @@ namespace AI
         {
             parserManager = new ParserManager(speechOrganizerList);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
+        }
+
+        /// <summary>
+        /// Update function for Beahavior Tree
+        /// (Must be the only function on the node and on repeat. Also must be the only node in the behavior)
+        /// (Any update behavior functions in this script can go in this function)
+        /// </summary>
+        public void BehaviorTreeUpdate()
+        {
+            GetComponent<BehaviourTreeOwner>().repeat = true;   // Enabled repeat for update behavior
+
+            VerifyDialogueType();
         }
 
         /// <summary>
@@ -82,7 +103,40 @@ namespace AI
             }
             else
             {
-                Debug.LogError("Cannot find global blackboard for setting dialogue!");
+                Debug.LogError("Cannot find global blackboard for confirming dialogue end!");
+            }
+        }
+
+        /// <summary>
+        /// A function for the BeahaviorTreeUpdate() that checks which dialogue type to play
+        /// (boolArrayTest is used for testing at the moment)
+        /// </summary>
+        public void VerifyDialogueType()
+        {  
+            if(boolArrayTest[0])
+            {
+                isGreetDialogue = true;
+                boolArrayTest[0] = false;
+            }
+            else if (boolArrayTest[1])
+            {
+                isNameIntroDialogue = true;
+                boolArrayTest[1] = false;
+            }
+            else if (boolArrayTest[2])
+            {
+                isPlanIntroDialogue = true;
+                boolArrayTest[2] = false;
+            }
+            else if (boolArrayTest[3])
+            {
+                isAskingQuestionDialogue = true;
+                boolArrayTest[3] = false;
+            }
+            else if (boolArrayTest[4])
+            {
+                isAnsweringQuestionDialogue = true;
+                boolArrayTest[4] = false;
             }
         }
     }

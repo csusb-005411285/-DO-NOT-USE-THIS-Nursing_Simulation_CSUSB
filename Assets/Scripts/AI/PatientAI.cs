@@ -12,18 +12,21 @@ namespace AI
     public class PatientAI : MonoBehaviour
     {
         [Header("Dialogue Thread Checks for AI: ")]
-        public bool[] boolArrayTest;
         public bool isGreetDialogue;
         public bool isNameIntroDialogue;
         public bool isPlanIntroDialogue;
         public bool isAskingQuestionDialogue;
         public bool isAnsweringQuestionDialogue;
+        public bool[] boolArrayTest;
 
         [Header("Dialogue Data for AI: ")]
         public Speech.SpeechOrganizerArrayObject speechOrganizerList;
-
         public string dialogueString;                   // String data for the dialogue
         public AudioClip dialogueAudioClip;             // AudioClip data for the dialogue
+
+        [Header("Dialogue Debugging for AI: ")]
+        public string debugErrorString = "DebugError Message";
+        public AudioClip debugErrorSound;
 
         private ParserManager parserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
@@ -67,6 +70,9 @@ namespace AI
             if (!speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip())
             {
                 Debug.LogError("Cannot find OutputClip for dialogue string and audioClip! Play error string and sound instead!");
+
+                dialogueString = debugErrorString;
+                dialogueAudioClip = debugErrorSound;
             }
             else
             {

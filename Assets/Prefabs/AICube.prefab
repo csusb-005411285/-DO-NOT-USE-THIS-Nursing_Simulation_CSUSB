@@ -206,16 +206,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d006a595596238340869c6fb6db03963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolArrayTest: 0100000000
   isGreetDialogue: 0
   isNameIntroDialogue: 0
   isPlanIntroDialogue: 0
   isAskingQuestionDialogue: 0
   isAnsweringQuestionDialogue: 0
+  boolArrayTest: 0100000000
   speechOrganizerList: {fileID: 11400000, guid: 57a9c2273708ec149af845a8478e1fa7,
     type: 2}
-  dialogueString: DebugError Message
-  dialogueAudioClip: {fileID: 8300000, guid: d36e5c7e1af2aa54ca5a300804933ec6, type: 3}
+  dialogueString: 
+  dialogueAudioClip: {fileID: 0}
+  debugErrorString: DebugError Message
+  debugErrorSound: {fileID: 8300000, guid: d36e5c7e1af2aa54ca5a300804933ec6, type: 3}
 --- !u!114 &114576445003367860
 MonoBehaviour:
   m_ObjectHideFlags: 1

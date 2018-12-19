@@ -86,12 +86,12 @@ namespace AWS
             try
             {
                 var pu = new PollyUtility();
-                var sres = pu.GetSynthesizedSpeechFromPolly(pollyText);
-                pu.GenerateMp3File(sres, pollyText);
+                var synthesizedSpeech = pu.GetSynthesizedSpeechFromPolly(pollyText);
+                pu.GenerateMp3File(synthesizedSpeech, pollyText);
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                Debug.Log(e.Message);
                 throw;
             }
         }

@@ -1,6 +1,10 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
+using System;
+using static System.String;
+using static UnityEngine.Debug;
+using Object = System.Object;
 
 //FIXME bug when default is not bob
 //FIXME bug not attaching all audio files when generate all is selected
@@ -70,6 +74,17 @@ namespace Speech
 
         }
 
+        public static bool SpeechExists(string speech)
+        {
+            var message = "Speech is empty.";
+            if (string.Equals(speech, null, StringComparison.Ordinal))
+            {
+                Log(message);
+                return false;
+            }
+            return true;
+        }
+
         private void generateCharacterVoiceClips()
         {
             speechOutput.outputAudioClipList = new OutputClip[speechOutput.outputPhrases.Length];
@@ -78,7 +93,7 @@ namespace Speech
             {
                 if (speechOutput.outputPhrases[i] == "")
                 {   //if empty text box, alert user and skip it
-                    Debug.LogError(thisObjectName+": Has empty output phrases.");
+                    LogError(thisObjectName+": Has empty output phrases.");
                     continue;
                 }
                 if (preventPollyAudioGeneration == false)
@@ -92,7 +107,8 @@ namespace Speech
                 if (outputClip == null) //if no clip already exists, create one
                 {
                     outputClip = ScriptableObject.CreateInstance<OutputClip>();
-                    AssetDatabase.CreateAsset(outputClip, "Assets/SpeechIO/GeneratedOutputClips/" + thisObjectName + "/" + speechOutput.outputPhrases[i] + ".asset");
+                    if (SpeechOutputEditor.SpeechExists(speechOutput.outputPhrases[i]))
+                        AssetDatabase.CreateAsset(outputClip, "Assets/SpeechIO/GeneratedOutputClips/" + thisObjectName + "/" + speechOutput.outputPhrases[i] + ".asset");
                     
                     //set OutputClip parameters
                     outputClip.outputPhrase = speechOutput.outputPhrases[i];
@@ -117,7 +133,7 @@ namespace Speech
                     CharacterConfig.currentCharacter.name + "/" + speechOutput.outputPhrases[i] + ".mp3", typeof(AudioClip));
                 if (outputAudio == null)
                 {
-                    Debug.LogError("Mising Audio Clip: " + CharacterConfig.currentCharacter.name + "/" + speechOutput.outputPhrases[i]);
+                    LogError("Mising Audio Clip: " + CharacterConfig.currentCharacter.name + "/" + speechOutput.outputPhrases[i]);
                 }
                 else
                 {

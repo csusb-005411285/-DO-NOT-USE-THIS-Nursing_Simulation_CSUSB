@@ -2,6 +2,8 @@
 using AWS;
 using UnityEngine;
 using System.Collections;
+using System;
+using Speech;
 
 public static class CloudManager	//TODO inactivity timeout
 {
@@ -24,8 +26,10 @@ public static class CloudManager	//TODO inactivity timeout
     /// <param name="textToSpeechInput">text that will be converted into audio</param>
     public static void StartPollyJob(string textToSpeechInput)
     {
-        pollyJobQueue.Enqueue(textToSpeechInput);
-        if (runningPollyThreads < maxPollyThreads)  //if there are threads avalible
+        if (Speech.SpeechOutputEditor.SpeechExists(textToSpeechInput))
+            pollyJobQueue.Enqueue(textToSpeechInput);
+        
+        if (runningPollyThreads < maxPollyThreads)  //if there are threads available
         {
             while (runningPollyThreads < maxPollyThreads && pollyJobQueue.Count != 0) //try to empty queue into threads
             {

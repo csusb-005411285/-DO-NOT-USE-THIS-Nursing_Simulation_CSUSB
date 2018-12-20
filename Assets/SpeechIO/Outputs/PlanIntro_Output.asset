@@ -13,4 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outputPhrases:
   - 
-  outputAudioClipList: []
+  - 
+  - 
+  outputAudioClipList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

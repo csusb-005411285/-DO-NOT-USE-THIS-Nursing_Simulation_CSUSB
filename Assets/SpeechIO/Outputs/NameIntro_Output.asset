@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Name: NameIntro_Output
   m_EditorClassIdentifier: 
   outputPhrases:
-  - 
-  outputAudioClipList: []
+  - My name is Ryan.
+  - I'm Ryan.
+  - Ryan is who I am.
+  outputAudioClipList:
+  - {fileID: 11400000, guid: 2f8fd377d175c68448f7de37f676a09d, type: 2}
+  - {fileID: 11400000, guid: be23fdc01177cce4786cbd36f834cf68, type: 2}
+  - {fileID: 11400000, guid: c3ec3f65ddf9a084a9d0c882de9e517f, type: 2}

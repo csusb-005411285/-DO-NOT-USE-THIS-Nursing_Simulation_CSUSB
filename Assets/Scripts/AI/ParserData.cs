@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace AI.Parser
 {
+    //static class that holds data for threads
     public static class ParserData
     {
-        //static class that holds data for threads
+        //TODO OPTIMIZE: replace this as structs and initialize in ParserManager
 
         public static string playerInput;
 

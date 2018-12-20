@@ -10,6 +10,7 @@ namespace AI
     {
 
         //private Thread parserThread = new Thread(inputParserJob);
+        public bool[] speechOrganizerSetActive;
 
         public ParserManager(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
         {
@@ -18,6 +19,7 @@ namespace AI
                 Debug.LogError("ParserData Initialization Error: SpeechOrganizerArray is null.");
                 return;
             }
+            speechOrganizerSetActive = new bool[speechOrganizerListObj.speechOrganizerArray.Length];
             ParserData.Initialize(speechOrganizerListObj);
         }
 
@@ -32,5 +34,6 @@ namespace AI
 
 
         //getResult() => equals null until search is complete
+        //reurns list of retirn objects (text and audio)
     }
 }

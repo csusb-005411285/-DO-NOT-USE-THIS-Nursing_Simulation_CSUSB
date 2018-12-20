@@ -7,14 +7,17 @@ namespace AI.Parser
     //the threaded logic for the input parser
     public class InputParser
     {
+        private bool debugOutput = false;
 
         private string closestStringMatch; //closest matching string
-        private int highestComparisonScore; //score of the closest matching string
+        private int bestComparisonScore; //score of the closest matching string
 
-        public InputParser(int threadNum, string input)
+        public InputParser(int threadNum, string input, bool debugOutput = false)
         {
+            this.debugOutput = debugOutput;
+
             closestStringMatch = "";
-            highestComparisonScore = 0;
+            bestComparisonScore = 100;
 
             string[] stringsToCompare = ParserData.speechOrganizerArray[threadNum].speechInput.inputPhrases;
             float threshold = ParserData.speechOrganizerArray[threadNum].speechInput.threshold;
@@ -36,7 +39,7 @@ namespace AI.Parser
             foreach (string phrase in stringsToCompare) {
                 if (inputWordArray.Length <= GetWordCount(phrase))  //if input is shorter than phrase to compare to, just compare
                 {
-                    UpdateHighScore(LevenshteinDistance(phrase, input), phrase);
+                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase);
                 }
                 else  //input is longer than phrase, roll through input sentence to see what section is closest
                 {
@@ -44,30 +47,31 @@ namespace AI.Parser
                     for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateHighScore(LevenshteinDistance(phrase, inputSection), phrase+" >> "+inputSection);
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> "+inputSection);
                     }
                 }
             }
 
             //update ParserData
             ParserData.closestString[threadNum] = closestStringMatch;
-            ParserData.closestStringScore[threadNum] = highestComparisonScore;
-            if (highestComparisonScore >= threshold)
+            ParserData.closestStringScore[threadNum] = bestComparisonScore;
+            if (bestComparisonScore >= threshold)
             {
                 ParserData.speechOrganizerWasTriggered[threadNum] = true;
             }
         }
 
         //check if score is higher than current score, update highestComparisonScore & closestStringMatch
-        private void UpdateHighScore(int score, string inputString)
+        private void UpdateBestScore(int score, string inputString)
         {   //TODO what to do in event of a score tie?
-            if (score == highestComparisonScore)
+            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+inputString); }
+            if (score == bestComparisonScore)
             {
                 Debug.LogWarning("equal closeness: " + closestStringMatch + " & " + inputString);
             }
-            if (score > highestComparisonScore)
+            if (score < bestComparisonScore)
             {
-                highestComparisonScore = score;
+                bestComparisonScore = score;
                 closestStringMatch = inputString;
             }
         }

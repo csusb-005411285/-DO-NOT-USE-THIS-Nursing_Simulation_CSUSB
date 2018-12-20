@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AI
+
+namespace AI.Parser
 {
     public static class ParserData
     {
@@ -10,15 +11,23 @@ namespace AI
 
         public static string playerInput;
 
-        public static bool[] speechOrganizerIsActive;
+        public static Speech.SpeechOrganizer[] speechOrganizerArray;
 
-        public static bool[] speechOrganizerIsTriggered;
+        public static bool[] speechOrganizerSetActive;
 
-        public static void Initialize(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
+        public static bool[] speechOrganizerWasTriggered;
+
+        public static string[] closestString;
+
+        public static float[] closestStringScore;
+
+        public static void Initialize(Speech.SpeechOrganizerArrayObject SOInput)
         {
-            Speech.SpeechOrganizer[] list = speechOrganizerListObj.speechOrganizerArray;
-            speechOrganizerIsActive = new bool[list.Length];
-            speechOrganizerIsTriggered = new bool[list.Length];
+            speechOrganizerArray = SOInput.speechOrganizerArray;
+            speechOrganizerSetActive = new bool[speechOrganizerArray.Length];
+            speechOrganizerWasTriggered = new bool[speechOrganizerArray.Length];
+            closestString = new string[speechOrganizerArray.Length];
+            closestStringScore = new float[speechOrganizerArray.Length];
         }
     }
 }

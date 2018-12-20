@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Name: AnsweringQuestion_Input
   m_EditorClassIdentifier: 
   inputPhrases:
-  - 
+  - hi
+  threshold: 100

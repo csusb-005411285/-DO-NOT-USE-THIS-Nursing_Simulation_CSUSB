@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Threading;
+using AI.Parser;
 
 namespace AI
 {
+    //class that spawns inputParser threads and manages interaction with parser data
+    //TODO should this clsss be static?
     public class ParserManager
     {
-        //class that spawns inputParser threads
 
         //private Thread parserThread = new Thread(inputParserJob);
 
@@ -14,19 +16,21 @@ namespace AI
             if (speechOrganizerListObj == null)
             {
                 Debug.LogError("ParserData Initialization Error: SpeechOrganizerArray is null.");
-                Time.timeScale = 0;
                 return;
             }
             ParserData.Initialize(speechOrganizerListObj);
         }
 
         //void startSearch(inputText)
+        //clear parser data during start jobs
 
-        private void inputParserJob()
+        private void inputParserJob(string input)
         {
-
+            
+            InputParser parser = new InputParser(1, input);
         }
 
-        //TODO know what input string ws triggered for debug
+
+        //getResult() => equals null until search is complete
     }
 }

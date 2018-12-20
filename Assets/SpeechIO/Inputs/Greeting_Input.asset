@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputPhrases:
   - hello there
-  - Hi there
-  - Hi
-  - Greetings
+  - hi there
+  - hi
+  - greetings
+  threshold: 100

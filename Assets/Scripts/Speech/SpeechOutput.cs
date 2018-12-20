@@ -17,6 +17,11 @@ namespace Speech
         /// array for holding outputClips for character
         public OutputClip[] outputAudioClipList = new OutputClip[0];
 
+        /// <summary>
+        /// integer of last output clip that was returned by GetOutputClip
+        /// </summary>
+        private int lastClipUsed;
+
         /// returns OutputClip of a phrase in OutputPhrases array
         /// <param name="phraseNumber">(optional) defaults to random phrase from OutputPhrases array, can specify specific phrase to output</param>
         /// <returns>OutputClip that corresponds with selected phrase, defaults to random</returns>
@@ -32,16 +37,28 @@ namespace Speech
                 return null;
             }
 
-            if (phraseNumber < 0)   //default, return random clip from list
+            if (phraseNumber < 0)   //default, return random clip from list, avoid reusing previous clip if possible
             {
-                return outputAudioClipList[Random.Range(0, outputPhrases.Length)];
+                if (outputAudioClipList.Length == 1)  //if list contains only one output, return that output
+                {
+                    return outputAudioClipList[0];
+                }
+                int clipToUse = Random.Range(0, outputAudioClipList.Length);
+                while (clipToUse == lastClipUsed)    //pick random output that was not last one used
+                {
+                    clipToUse = Random.Range(0, outputAudioClipList.Length);
+                }
+                lastClipUsed = clipToUse;
+                return outputAudioClipList[clipToUse];
             }
-            else if (phraseNumber > outputPhrases.Length - 1) //if number is longer than list, return last
+            else if (phraseNumber > outputAudioClipList.Length - 1) //if number is longer than list, return last
             {
-                return outputAudioClipList[outputPhrases.Length];
+                lastClipUsed = outputAudioClipList.Length;
+                return outputAudioClipList[outputAudioClipList.Length-1];
             }
             else  //return specifically requested number
             {
+                lastClipUsed = phraseNumber;
                 return outputAudioClipList[phraseNumber];
             }
         }

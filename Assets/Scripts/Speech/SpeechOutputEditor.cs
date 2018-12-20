@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEditor;
 
+//FIXME bug when default is not bob
+//FIXME bug not attaching all audio files when generate all is selected
+
 namespace Speech
 {
     [CustomEditor(typeof(SpeechOutput), true)]//TODO see if custom editor can be toggled
@@ -34,6 +37,15 @@ namespace Speech
 
             if (GUILayout.Button("Generate Audio Clips"))
             {
+
+                string newDirectory = Tools.Directory.GetHomeDirectory() + @"Assets\SpeechIO\GeneratedOutputClips\" + thisObjectName + @"\";
+                if (System.IO.Directory.Exists(newDirectory))
+                {
+                    System.IO.Directory.Delete(newDirectory, true);
+                }
+                System.IO.Directory.CreateDirectory(newDirectory);
+                AssetDatabase.Refresh();
+
                 EditorUtility.DisplayProgressBar("Generating Audio Clips...", "starting...", 0f);
                 if (generateForAllCharacters == true)   //generate voice clips for all characters, restore currently selected character
                 {
@@ -62,14 +74,6 @@ namespace Speech
         {
             speechOutput.outputAudioClipList = new OutputClip[speechOutput.outputPhrases.Length];
 
-            string newDirectory = Tools.Directory.GetHomeDirectory() + @"Assets\SpeechIO\GeneratedOutputClips\" + thisObjectName + @"\";
-            if (System.IO.Directory.Exists(newDirectory))
-            {
-                System.IO.Directory.Delete(newDirectory, true);
-            }
-            System.IO.Directory.CreateDirectory(newDirectory);
-            AssetDatabase.Refresh();
-
             for (int i = 0; i < speechOutput.outputPhrases.Length; i++) //for each output Phrase, create OutputClip and generate Audio
             {
                 if (speechOutput.outputPhrases[i] == "")
@@ -82,13 +86,18 @@ namespace Speech
                     CloudManager.StartPollyJob(speechOutput.outputPhrases[i]);
                 }
 
-                OutputClip myClip = ScriptableObject.CreateInstance<OutputClip>();
+                OutputClip outputClip = (OutputClip)AssetDatabase.LoadAssetAtPath("Assets/SpeechIO/GeneratedOutputClips/" + 
+                    thisObjectName + "/" + speechOutput.outputPhrases[i] + ".asset", typeof(OutputClip));
 
-                AssetDatabase.CreateAsset(myClip, "Assets/SpeechIO/GeneratedOutputClips/" + thisObjectName + "/" + speechOutput.outputPhrases[i] + ".asset");
-                speechOutput.outputAudioClipList[i] = myClip;
-
-                //set OutputClip parameters
-                myClip.outputPhrase = speechOutput.outputPhrases[i];
+                if (outputClip == null) //if no clip already exists, create one
+                {
+                    outputClip = ScriptableObject.CreateInstance<OutputClip>();
+                    AssetDatabase.CreateAsset(outputClip, "Assets/SpeechIO/GeneratedOutputClips/" + thisObjectName + "/" + speechOutput.outputPhrases[i] + ".asset");
+                    
+                    //set OutputClip parameters
+                    outputClip.outputPhrase = speechOutput.outputPhrases[i];
+                }
+                speechOutput.outputAudioClipList[i] = outputClip;
             }
 
             while (CloudManager.WaitForPollyJobs() != true)    //wait for audio clips to download

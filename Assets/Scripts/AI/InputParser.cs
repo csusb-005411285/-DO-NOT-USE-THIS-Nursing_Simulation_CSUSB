@@ -47,7 +47,7 @@ namespace AI.Parser
                     for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> "+inputSection);
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"");
                     }
                 }
             }
@@ -55,6 +55,10 @@ namespace AI.Parser
             //update ParserData
             ParserData.closestString[threadNum] = closestStringMatch;
             ParserData.closestStringScore[threadNum] = bestComparisonScore;
+
+            //FIXME broken, needs to account for threshold score somehow
+            //100 means perfect match required, 50 means half match, 0 means basically anything matches
+            //calculate threshold passability
             if (bestComparisonScore >= threshold)
             {
                 ParserData.speechOrganizerWasTriggered[threadNum] = true;
@@ -96,7 +100,7 @@ namespace AI.Parser
             return wordCount;
         }
 
-        //get number of character changes required to make one string equal to another
+        //get number of character changes required to make one string equivalent to another
         private int LevenshteinDistance(string s, string t)
         {
             if (string.IsNullOrEmpty(s))

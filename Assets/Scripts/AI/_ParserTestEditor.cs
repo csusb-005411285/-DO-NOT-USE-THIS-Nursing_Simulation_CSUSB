@@ -1,16 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if UNITY_EDITOR
 using UnityEngine;
+using UnityEditor;
 
-public class _ParserTestEditor : MonoBehaviour {
+namespace AI.Test
+{
+    [CustomEditor(typeof(_ParserTest), true)]
+    public class _ParserTestEditor : Editor
+    {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            if (GUILayout.Button("Test Input"))
+            {
+                ((_ParserTest)target).startTest();
+            }
+        }
+
+    }
 }
+#endif

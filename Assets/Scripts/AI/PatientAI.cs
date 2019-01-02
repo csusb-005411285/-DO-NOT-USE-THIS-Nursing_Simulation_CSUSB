@@ -78,8 +78,27 @@ namespace AI
 
             if (outputClipList.Length != 0)
             {
-                dialogueString = outputClipList[0].outputPhrase;
-                dialogueAudioClip = outputClipList[0].GetAudioClip();
+                if (outputClipList[0].outputPhrase == null || outputClipList[0].GetAudioClip() == null)
+                {
+                    dialogueString = outputClipList[0].outputPhrase;
+                    dialogueAudioClip = outputClipList[0].GetAudioClip();
+                }
+                else
+                {
+                    Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null!");
+                    Debug.LogError("Dialogue cannot play now!");
+
+                    dialogueString = debugErrorString;
+                    dialogueAudioClip = debugErrorSound;
+                }
+            }
+            else
+            {
+                Debug.LogError("Output Clip List is empty!");
+                Debug.LogError("Dialogue cannot play now!");
+
+                dialogueString = debugErrorString;
+                dialogueAudioClip = debugErrorSound;
             }
 
         }
@@ -122,35 +141,35 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {  
-            if(parserManager.speechOrganizerSetActive[0])
+            if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
-                //boolArrayTest[0] = false;
-                parserManager.speechOrganizerSetActive[0] = false;
+                boolArrayTest[0] = false;
+                //parserManager.speechOrganizerSetActive[0] = false;
             }
-            else if (parserManager.speechOrganizerSetActive[1])
+            else if (boolArrayTest[1])
             {
                 isNameIntroDialogue = true;
-                //boolArrayTest[1] = false;
-                parserManager.speechOrganizerSetActive[1] = false;
+                boolArrayTest[1] = false;
+                //parserManager.speechOrganizerSetActive[1] = false;
             }
-            else if (parserManager.speechOrganizerSetActive[2])
+            else if (boolArrayTest[2])
             {
                 isPlanIntroDialogue = true;
-                //boolArrayTest[2] = false;
-                parserManager.speechOrganizerSetActive[2] = false;
+                boolArrayTest[2] = false;
+                //parserManager.speechOrganizerSetActive[2] = false;
             }
-            else if (parserManager.speechOrganizerSetActive[3])
+            else if (boolArrayTest[3])
             {
                 isAskingQuestionDialogue = true;
-                //boolArrayTest[3] = false;
-                parserManager.speechOrganizerSetActive[3] = false;
+                boolArrayTest[3] = false;
+                //parserManager.speechOrganizerSetActive[3] = false;
             }
-            else if (parserManager.speechOrganizerSetActive[4])
+            else if (boolArrayTest[4])
             {
                 isAnsweringQuestionDialogue = true;
-                //boolArrayTest[4] = false;
-                parserManager.speechOrganizerSetActive[4] = false;
+                boolArrayTest[4] = false;
+                //parserManager.speechOrganizerSetActive[4] = false;
             }
         }
     }

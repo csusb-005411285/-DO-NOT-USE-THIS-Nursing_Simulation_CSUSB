@@ -67,18 +67,21 @@ namespace AI
         /// </summary>
         public void FindDialogue(int speechElement)
         {
-            if (!speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip())
-            {
-                Debug.LogError("Cannot find OutputClip for dialogue string and audioClip! Play error string and sound instead!");
+            Speech.OutputClip[] outputClipList = parserManager.getOutputs();
 
-                dialogueString = debugErrorString;
-                dialogueAudioClip = debugErrorSound;
-            }
-            else
+            //FIXME handle multiple output clips
+            foreach (Speech.OutputClip clip in outputClipList)
             {
-                dialogueString = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().outputPhrase;
-                dialogueAudioClip = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().GetAudioClip();
+                //FIXME
+                //BROKEN needs to be able to handle multiple dialogues at once
             }
+
+            if (outputClipList.Length != 0)
+            {
+                dialogueString = outputClipList[0].outputPhrase;
+                dialogueAudioClip = outputClipList[0].GetAudioClip();
+            }
+
         }
 
         /// <summary>
@@ -119,30 +122,35 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {  
-            if(boolArrayTest[0])
+            if(parserManager.speechOrganizerSetActive[0])
             {
                 isGreetDialogue = true;
-                boolArrayTest[0] = false;
+                //boolArrayTest[0] = false;
+                parserManager.speechOrganizerSetActive[0] = false;
             }
-            else if (boolArrayTest[1])
+            else if (parserManager.speechOrganizerSetActive[1])
             {
                 isNameIntroDialogue = true;
-                boolArrayTest[1] = false;
+                //boolArrayTest[1] = false;
+                parserManager.speechOrganizerSetActive[1] = false;
             }
-            else if (boolArrayTest[2])
+            else if (parserManager.speechOrganizerSetActive[2])
             {
                 isPlanIntroDialogue = true;
-                boolArrayTest[2] = false;
+                //boolArrayTest[2] = false;
+                parserManager.speechOrganizerSetActive[2] = false;
             }
-            else if (boolArrayTest[3])
+            else if (parserManager.speechOrganizerSetActive[3])
             {
                 isAskingQuestionDialogue = true;
-                boolArrayTest[3] = false;
+                //boolArrayTest[3] = false;
+                parserManager.speechOrganizerSetActive[3] = false;
             }
-            else if (boolArrayTest[4])
+            else if (parserManager.speechOrganizerSetActive[4])
             {
                 isAnsweringQuestionDialogue = true;
-                boolArrayTest[4] = false;
+                //boolArrayTest[4] = false;
+                parserManager.speechOrganizerSetActive[4] = false;
             }
         }
     }

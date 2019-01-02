@@ -14,7 +14,7 @@ MonoBehaviour:
   speechOrganizerList: {fileID: 11400000, guid: 57a9c2273708ec149af845a8478e1fa7,
     type: 2}
   verboseDebug: 0
-  timerOn: 1
+  timerOn: 0
   onlyShowPassingThreshold: 0
   inputObjectToTestAgainst: -1
   playerInputToTest: Hello World!

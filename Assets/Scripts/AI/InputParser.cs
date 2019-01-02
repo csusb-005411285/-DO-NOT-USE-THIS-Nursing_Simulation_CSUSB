@@ -12,6 +12,7 @@ namespace AI.Parser
         private string closestStringMatch; //closest matching string
         private int bestComparisonScore; //score of the closest matching string
 
+        //TODO account for wildcards and "important" words
         public InputParser(int threadNum, string input, bool debugOutput = false)
         {
             this.debugOutput = debugOutput;
@@ -28,7 +29,7 @@ namespace AI.Parser
             }
             input = input.ToLower();
             //TODO might have to trim out punctuatuion?
-            //TODO account for wildcards (such as user name)
+            //TODO account for wildcards (such as user's name)
 
 
             //=============== Comparison Algorithm ================

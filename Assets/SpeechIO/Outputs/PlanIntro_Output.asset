@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Name: PlanIntro_Output
   m_EditorClassIdentifier: 
   outputPhrases:
-  - 
-  - 
-  - 
+  - that sounds good
   outputAudioClipList:
   - {fileID: 0}
   - {fileID: 0}

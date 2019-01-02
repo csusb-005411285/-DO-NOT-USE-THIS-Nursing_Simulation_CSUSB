@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: _SpeechOrganizerMasterList
   m_EditorClassIdentifier: 
   speechOrganizerArray:
-  - {fileID: 11400000, guid: 56784aaaf160b4d418c8456bb667a7f3, type: 2}
-  - {fileID: 11400000, guid: 78a86dbf428b18a4bbb6686354e97cab, type: 2}
   - {fileID: 11400000, guid: 6e28fbc073d25b24da5d871b58990c33, type: 2}
   - {fileID: 11400000, guid: 9f3891fffdecae44e97073c63041f41e, type: 2}
   - {fileID: 11400000, guid: d7be08098244c334088f16e7b0597489, type: 2}
+  - {fileID: 11400000, guid: 78a86dbf428b18a4bbb6686354e97cab, type: 2}
+  - {fileID: 11400000, guid: 56784aaaf160b4d418c8456bb667a7f3, type: 2}

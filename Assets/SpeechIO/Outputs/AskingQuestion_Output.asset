@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: AskingQuestion_Output
   m_EditorClassIdentifier: 
   outputPhrases:
-  - 
+  - what do i do
   outputAudioClipList: []

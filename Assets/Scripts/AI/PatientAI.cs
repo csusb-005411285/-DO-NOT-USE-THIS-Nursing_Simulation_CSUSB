@@ -17,6 +17,8 @@ namespace AI
         public bool isPlanIntroDialogue;
         public bool isAskingQuestionDialogue;
         public bool isAnsweringQuestionDialogue;
+
+        //public bool[] speechTypeTriggered;
         public bool[] boolArrayTest;
 
         [Header("Dialogue Data for AI: ")]
@@ -39,6 +41,7 @@ namespace AI
         private void Awake()
         {
             parserManager = new ParserManager(speechOrganizerList);
+            Debug.Log(parserManager);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
         }
 
@@ -140,37 +143,68 @@ namespace AI
         /// (boolArrayTest is used for testing at the moment)
         /// </summary>
         public void VerifyDialogueType()
-        {  
+        {
+            if (parserManager != null)
+            {
+                Debug.Log(parserManager);
+
+                if (parserManager.speechOrganizerWasTriggered.Length != 0 && parserManager.speechOrganizerSetActive.Length != 0)
+                {
+                    for (int i = 0; i < parserManager.speechOrganizerWasTriggered.Length; i++)
+                    {
+                        if (parserManager.speechOrganizerWasTriggered[i])
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    isGreetDialogue = true;
+                                    break;
+                                case 1:
+                                    isNameIntroDialogue = true;
+                                    break;
+                                case 2:
+                                    isPlanIntroDialogue = true;
+                                    break;
+                                case 3:
+                                    isAskingQuestionDialogue = true;
+                                    break;
+                                case 4:
+                                    isAnsweringQuestionDialogue = true;
+                                    break;
+                            }
+
+                            parserManager.speechOrganizerSetActive[i] = false;
+                        }
+                    }
+                }
+            }
+            /*
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
                 boolArrayTest[0] = false;
-                //parserManager.speechOrganizerSetActive[0] = false;
             }
             else if (boolArrayTest[1])
             {
                 isNameIntroDialogue = true;
                 boolArrayTest[1] = false;
-                //parserManager.speechOrganizerSetActive[1] = false;
             }
             else if (boolArrayTest[2])
             {
                 isPlanIntroDialogue = true;
                 boolArrayTest[2] = false;
-                //parserManager.speechOrganizerSetActive[2] = false;
             }
             else if (boolArrayTest[3])
             {
                 isAskingQuestionDialogue = true;
                 boolArrayTest[3] = false;
-                //parserManager.speechOrganizerSetActive[3] = false;
             }
             else if (boolArrayTest[4])
             {
                 isAnsweringQuestionDialogue = true;
                 boolArrayTest[4] = false;
-                //parserManager.speechOrganizerSetActive[4] = false;
             }
+            */
         }
     }
 }

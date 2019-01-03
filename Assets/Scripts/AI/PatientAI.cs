@@ -178,6 +178,7 @@ namespace AI
                     }
                 }
             }
+
             /*
             if(boolArrayTest[0])
             {

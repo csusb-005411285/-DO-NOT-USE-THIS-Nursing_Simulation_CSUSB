@@ -307,7 +307,7 @@ MonoBehaviour:
   isPlanIntroDialogue: 0
   isAskingQuestionDialogue: 0
   isAnsweringQuestionDialogue: 0
-  boolArrayTest: 0100000000
+  boolArrayTest: 0000000000
   speechOrganizerList: {fileID: 11400000, guid: 57a9c2273708ec149af845a8478e1fa7,
     type: 2}
   dialogueString: 

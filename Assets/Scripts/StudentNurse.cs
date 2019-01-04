@@ -42,6 +42,8 @@ public class StudentNurse : MonoBehaviour
     {
         if (voiceToText.text != "")
         {
+            voiceToText.text = "";
+            Debug.Log("Patient Interupted");
             return true;
         }
         else

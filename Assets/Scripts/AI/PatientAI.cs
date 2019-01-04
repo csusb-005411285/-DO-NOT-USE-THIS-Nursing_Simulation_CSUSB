@@ -30,10 +30,12 @@ namespace AI
         public string debugErrorString = "DebugError Message";
         public AudioClip debugErrorSound;
 
+        private bool isInterupted = false;
         private ParserManager parserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
+        public bool IsInterupted { get { return isInterupted; } set { isInterupted = value; } }
 
         /// <summary>
         /// Initializes variables upon scene awake
@@ -136,6 +138,25 @@ namespace AI
             {
                 Debug.LogError("Cannot find global blackboard for confirming dialogue end!");
             }
+        }
+
+        /// <summary>
+        /// Gets the previous dialogue spoken by the AI after the student nurse interupts the patient
+        /// </summary>
+        /// <returns></returns>
+        private string GetInteruptedDialogue()                              // Used to get the previous 
+        {
+            gBlackboard.SetValue("patientDialogue", "Please hold on and let me finish. As I was saying, ...");  // This could be different each time
+            gBlackboard.SetValue("dialogueAudioClip", null);    // Null for right now
+            return dialogueString;
+        }
+
+        /// <summary>
+        /// Set the previous dialogue spoken by the AI back after the AI states that it was interupted by the student nurse
+        /// </summary>
+        public void SetInteruptedDialogue()
+        {
+            dialogueString = GetInteruptedDialogue();  // This can be replaced with a string variable if needed
         }
 
         /// <summary>

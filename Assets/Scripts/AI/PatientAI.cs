@@ -144,6 +144,7 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {
+            /*
             if (parserManager != null)
             {
                 Debug.Log(parserManager);
@@ -178,8 +179,8 @@ namespace AI
                     }
                 }
             }
+            */
 
-            /*
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
@@ -205,7 +206,6 @@ namespace AI
                 isAnsweringQuestionDialogue = true;
                 boolArrayTest[4] = false;
             }
-            */
         }
     }
 }

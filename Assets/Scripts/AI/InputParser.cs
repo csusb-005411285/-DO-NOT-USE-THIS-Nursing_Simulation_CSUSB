@@ -7,14 +7,18 @@ namespace AI.Parser
     //the threaded logic for the input parser
     public class InputParser
     {
+        private bool debugOutput = false;
 
         private string closestStringMatch; //closest matching string
-        private int highestComparisonScore; //score of the closest matching string
+        private int bestComparisonScore; //score of the closest matching string
 
-        public InputParser(int threadNum, string input)
+        //TODO account for wildcards and "important" words
+        public InputParser(int threadNum, string input, bool debugOutput = false)
         {
+            this.debugOutput = debugOutput;
+
             closestStringMatch = "";
-            highestComparisonScore = 0;
+            bestComparisonScore = 100;
 
             string[] stringsToCompare = ParserData.speechOrganizerArray[threadNum].speechInput.inputPhrases;
             float threshold = ParserData.speechOrganizerArray[threadNum].speechInput.threshold;
@@ -25,7 +29,7 @@ namespace AI.Parser
             }
             input = input.ToLower();
             //TODO might have to trim out punctuatuion?
-            //TODO account for wildcards (such as user name)
+            //TODO account for wildcards (such as user's name)
 
 
             //=============== Comparison Algorithm ================
@@ -36,7 +40,7 @@ namespace AI.Parser
             foreach (string phrase in stringsToCompare) {
                 if (inputWordArray.Length <= GetWordCount(phrase))  //if input is shorter than phrase to compare to, just compare
                 {
-                    UpdateHighScore(LevenshteinDistance(phrase, input), phrase);
+                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase);
                 }
                 else  //input is longer than phrase, roll through input sentence to see what section is closest
                 {
@@ -44,30 +48,35 @@ namespace AI.Parser
                     for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateHighScore(LevenshteinDistance(phrase, inputSection), phrase+" >> "+inputSection);
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"");
                     }
                 }
             }
 
             //update ParserData
             ParserData.closestString[threadNum] = closestStringMatch;
-            ParserData.closestStringScore[threadNum] = highestComparisonScore;
-            if (highestComparisonScore >= threshold)
+            ParserData.closestStringScore[threadNum] = bestComparisonScore;
+
+            //FIXME broken, needs to account for threshold score somehow
+            //100 means perfect match required, 50 means half match, 0 means basically anything matches
+            //calculate threshold passability
+            if (bestComparisonScore >= threshold)
             {
                 ParserData.speechOrganizerWasTriggered[threadNum] = true;
             }
         }
 
         //check if score is higher than current score, update highestComparisonScore & closestStringMatch
-        private void UpdateHighScore(int score, string inputString)
+        private void UpdateBestScore(int score, string inputString)
         {   //TODO what to do in event of a score tie?
-            if (score == highestComparisonScore)
+            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+inputString); }
+            if (score == bestComparisonScore)
             {
                 Debug.LogWarning("equal closeness: " + closestStringMatch + " & " + inputString);
             }
-            if (score > highestComparisonScore)
+            if (score < bestComparisonScore)
             {
-                highestComparisonScore = score;
+                bestComparisonScore = score;
                 closestStringMatch = inputString;
             }
         }
@@ -92,7 +101,7 @@ namespace AI.Parser
             return wordCount;
         }
 
-        //get number of character changes required to make one string equal to another
+        //get number of character changes required to make one string equivalent to another
         private int LevenshteinDistance(string s, string t)
         {
             if (string.IsNullOrEmpty(s))

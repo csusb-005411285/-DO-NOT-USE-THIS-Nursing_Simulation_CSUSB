@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Name: AnsweringQuestion_Output
   m_EditorClassIdentifier: 
   outputPhrases:
-  - 
+  - that makes sense
+  - okay
   outputAudioClipList: []

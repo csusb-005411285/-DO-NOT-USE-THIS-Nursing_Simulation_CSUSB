@@ -17,6 +17,8 @@ namespace AI
         public bool isPlanIntroDialogue;
         public bool isAskingQuestionDialogue;
         public bool isAnsweringQuestionDialogue;
+
+        //public bool[] speechTypeTriggered;
         public bool[] boolArrayTest;
 
         [Header("Dialogue Data for AI: ")]
@@ -28,10 +30,12 @@ namespace AI
         public string debugErrorString = "DebugError Message";
         public AudioClip debugErrorSound;
 
+        private bool isInterupted = false;
         private ParserManager parserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
+        public bool IsInterupted { get { return isInterupted; } set { isInterupted = value; } }
 
         /// <summary>
         /// Initializes variables upon scene awake
@@ -39,6 +43,7 @@ namespace AI
         private void Awake()
         {
             parserManager = new ParserManager(speechOrganizerList);
+            Debug.Log(parserManager);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
         }
 
@@ -67,18 +72,40 @@ namespace AI
         /// </summary>
         public void FindDialogue(int speechElement)
         {
-            if (!speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip())
+            Speech.OutputClip[] outputClipList = parserManager.getOutputs();
+
+            //FIXME handle multiple output clips
+            foreach (Speech.OutputClip clip in outputClipList)
             {
-                Debug.LogError("Cannot find OutputClip for dialogue string and audioClip! Play error string and sound instead!");
+                //FIXME
+                //BROKEN needs to be able to handle multiple dialogues at once
+            }
+
+            if (outputClipList.Length != 0)
+            {
+                if (outputClipList[0].outputPhrase == null || outputClipList[0].GetAudioClip() == null)
+                {
+                    dialogueString = outputClipList[0].outputPhrase;
+                    dialogueAudioClip = outputClipList[0].GetAudioClip();
+                }
+                else
+                {
+                    Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null!");
+                    Debug.LogError("Dialogue cannot play now!");
+
+                    dialogueString = debugErrorString;
+                    dialogueAudioClip = debugErrorSound;
+                }
+            }
+            else
+            {
+                Debug.LogError("Output Clip List is empty!");
+                Debug.LogError("Dialogue cannot play now!");
 
                 dialogueString = debugErrorString;
                 dialogueAudioClip = debugErrorSound;
             }
-            else
-            {
-                dialogueString = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().outputPhrase;
-                dialogueAudioClip = speechOrganizerList.speechOrganizerArray[speechElement].speechOutput.GetOutputClip().GetAudioClip();
-            }
+
         }
 
         /// <summary>
@@ -114,11 +141,67 @@ namespace AI
         }
 
         /// <summary>
+        /// Gets the previous dialogue spoken by the AI after the student nurse interupts the patient
+        /// </summary>
+        /// <returns></returns>
+        private string GetInteruptedDialogue()                              // Used to get the previous 
+        {
+            gBlackboard.SetValue("patientDialogue", "Please hold on and let me finish. As I was saying, ...");  // This could be different each time
+            gBlackboard.SetValue("dialogueAudioClip", null);    // Null for right now
+            return dialogueString;
+        }
+
+        /// <summary>
+        /// Set the previous dialogue spoken by the AI back after the AI states that it was interupted by the student nurse
+        /// </summary>
+        public void SetInteruptedDialogue()
+        {
+            dialogueString = GetInteruptedDialogue();  // This can be replaced with a string variable if needed
+        }
+
+        /// <summary>
         /// A function for the BeahaviorTreeUpdate() that checks which dialogue type to play
         /// (boolArrayTest is used for testing at the moment)
         /// </summary>
         public void VerifyDialogueType()
-        {  
+        {
+            /*
+            if (parserManager != null)
+            {
+                Debug.Log(parserManager);
+
+                if (parserManager.speechOrganizerWasTriggered.Length != 0 && parserManager.speechOrganizerSetActive.Length != 0)
+                {
+                    for (int i = 0; i < parserManager.speechOrganizerWasTriggered.Length; i++)
+                    {
+                        if (parserManager.speechOrganizerWasTriggered[i])
+                        {
+                            switch (i)
+                            {
+                                case 0:
+                                    isGreetDialogue = true;
+                                    break;
+                                case 1:
+                                    isNameIntroDialogue = true;
+                                    break;
+                                case 2:
+                                    isPlanIntroDialogue = true;
+                                    break;
+                                case 3:
+                                    isAskingQuestionDialogue = true;
+                                    break;
+                                case 4:
+                                    isAnsweringQuestionDialogue = true;
+                                    break;
+                            }
+
+                            parserManager.speechOrganizerSetActive[i] = false;
+                        }
+                    }
+                }
+            }
+            */
+
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;

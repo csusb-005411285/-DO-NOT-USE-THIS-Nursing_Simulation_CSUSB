@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace AI.Parser
 {
+    //static class that holds data for threads
     public static class ParserData
     {
-        //static class that holds data for threads
-
-        public static string playerInput;
+        //TODO OPTIMIZE: replace this as non static structs and initialize in ParserManager
 
         public static Speech.SpeechOrganizer[] speechOrganizerArray;
 

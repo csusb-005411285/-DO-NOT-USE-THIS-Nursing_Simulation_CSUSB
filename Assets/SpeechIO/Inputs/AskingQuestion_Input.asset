@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Name: AskingQuestion_Input
   m_EditorClassIdentifier: 
   inputPhrases:
-  - hi
+  - what is your name
+  - how are you feeling today
+  - have you been feeling well lately
+  - have you been taking your medicine regularly
+  - what are you coming in for today
+  - do you have any questions
+  - do you have any questions for me
   threshold: 100

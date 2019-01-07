@@ -31,7 +31,7 @@ namespace Speech
             {
 #if UNITY_EDITOR
                 SerializedObject serializedObject1 = new SerializedObject(this);
-                Debug.LogWarning(serializedObject1.FindProperty("m_Name").stringValue +
+                Debug.LogError(serializedObject1.FindProperty("m_Name").stringValue +
                     " has no attached audio clips in outputAudioClipList[], Generate or attach audioClips to fix");
 #endif
                 return null;

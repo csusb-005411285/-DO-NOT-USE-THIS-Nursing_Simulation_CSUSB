@@ -14,3 +14,5 @@ MonoBehaviour:
   inputPhrases:
   - my name is ___
   - i am ___
+  - hello my name is
+  threshold: 100

@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Name: AnsweringQuestion_Input
   m_EditorClassIdentifier: 
   inputPhrases:
-  - hi
+  - so the answer to your question is
+  - i think the answer is
+  - youre going to need to know
+  - you need to look into
+  - i can tell you about
   threshold: 100

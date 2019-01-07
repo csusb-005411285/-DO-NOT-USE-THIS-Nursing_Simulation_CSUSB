@@ -13,3 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputPhrases:
   - today we will be talking about
+  - alright im going to tell you about
+  - you need to understand
+  threshold: 100

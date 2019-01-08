@@ -1359,6 +1359,12 @@ namespace Valve.VR.InteractionSystem
 
             this.BroadcastMessage("SetInputSource", handType, SendMessageOptions.DontRequireReceiver); // let child objects know we've initialized
             this.BroadcastMessage("OnHandInitialized", deviceIndex, SendMessageOptions.DontRequireReceiver); // let child objects know we've initialized
+
+            if (mainRenderModel.handPrefab.name.Contains("custom"))
+            {
+                renderModelInstance.transform.GetChild(0).transform.localPosition = mainRenderModel.handPrefab.transform.localPosition;
+                renderModelInstance.transform.GetChild(0).transform.localRotation = mainRenderModel.handPrefab.transform.localRotation;
+            }
         }
 
         public void SetRenderModel(GameObject prefab)

@@ -43,13 +43,28 @@ namespace AI
         /// </summary>
         /// <param name="inputText">The text that the user is to say to the bot</param>
         /// <returns>True if search is started, false if search is still running</returns>
-        public bool startSearch(string inputText)
+        public bool startSearch(string inputString)
         {
+            string inputText = string.Copy(inputString);
             if (searchIsRunning == true)
             {
                 return false;
             }
             searchIsRunning = true;
+
+            //warning when no search objects are active
+            bool anOrganizerIsActive = false;
+            for (int i=0; i<speechOrganizerSetActive.Length; i++)
+            {
+                if (speechOrganizerSetActive[i] == true)
+                {
+                    anOrganizerIsActive = true;
+                }
+            }
+            if (anOrganizerIsActive == false)
+            {
+                Debug.LogWarning("No Speech objects are active for searching... set objects active in speechOrganizerSetActive[]");
+            }
 
             //clear Parser Data
             for (int i = 0; i < ParserData.speechOrganizerArray.Length; i++)

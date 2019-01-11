@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using NodeCanvas.Framework;
 using NodeCanvas.BehaviourTrees;
 
@@ -35,7 +36,7 @@ namespace AI
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
-        public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
+        public bool IsTalking { get { return isTalking; } set { isTalking = value; } }  // Checks if AI is talking in each state
 
         /// <summary>
         /// Initializes variables upon scene awake
@@ -56,7 +57,7 @@ namespace AI
         {
             GetComponent<BehaviourTreeOwner>().repeat = true;   // Enabled repeat for update behavior
 
-            VerifyDialogueType();
+            //VerifyDialogueType();
         }
 
         /// <summary>
@@ -140,23 +141,42 @@ namespace AI
             }
         }
 
-        /// <summary>
-        /// Gets the previous dialogue spoken by the AI after the student nurse interupts the patient
-        /// </summary>
-        /// <returns></returns>
-        private string GetInteruptedDialogue()                              // Used to get the previous 
+        public void Interpret(Text speechText)
         {
-            gBlackboard.SetValue("patientDialogue", "Please hold on and let me finish. As I was saying, ...");  // This could be different each time
-            gBlackboard.SetValue("dialogueAudioClip", null);    // Null for right now
-            return dialogueString;
+            // start search
+            parserManager.startSearch(speechText.text);
+            speechText.text = "";
+
+            Speech.OutputClip[] clipList;
+            // check if search is null
+            do
+            {
+                clipList = parserManager.getOutputs();
+            } while (clipList == null);
+
+            // then output results from parse
+            for (int i = 0; i < clipList.Length; i++)
+            {
+                //get audio clip and string
+                if (parserManager.speechOrganizerWasTriggered[i])
+                {
+                    FindDialogue(i);
+                }
+            }
         }
 
-        /// <summary>
-        /// Set the previous dialogue spoken by the AI back after the AI states that it was interupted by the student nurse
-        /// </summary>
-        public void SetInteruptedDialogue()
+        public bool HasAudioClips()
         {
-            dialogueString = GetInteruptedDialogue();  // This can be replaced with a string variable if needed
+            if (parserManager.getOutputs() == null)
+            {
+                Debug.Log("Audio Clips for Spoken words are not present!");
+                return false;
+            }
+            else
+            {
+                Debug.Log("Audio Clips for Spoken words are present!");
+                return true;
+            }
         }
 
         /// <summary>
@@ -165,11 +185,9 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {
-            /*
             if (parserManager != null)
             {
                 Debug.Log(parserManager);
-
                 if (parserManager.speechOrganizerWasTriggered.Length != 0 && parserManager.speechOrganizerSetActive.Length != 0)
                 {
                     for (int i = 0; i < parserManager.speechOrganizerWasTriggered.Length; i++)
@@ -200,8 +218,8 @@ namespace AI
                     }
                 }
             }
-            */
-
+            
+            /*
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
@@ -227,6 +245,7 @@ namespace AI
                 isAnsweringQuestionDialogue = true;
                 boolArrayTest[4] = false;
             }
+            */
         }
     }
 }

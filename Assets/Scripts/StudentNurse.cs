@@ -29,7 +29,7 @@ public class StudentNurse : MonoBehaviour
     {
         if (voiceToText.text.Contains("Final"))
         {
-            voiceToText.text = "";
+            //voiceToText.text = "";
             Debug.Log("Dialogue Finalized");
             return true;
         }

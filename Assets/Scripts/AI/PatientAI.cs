@@ -30,12 +30,12 @@ namespace AI
         public string debugErrorString = "DebugError Message";
         public AudioClip debugErrorSound;
 
-        private bool isInterupted = false;
+        private bool isTalking = false;
         private ParserManager parserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
-        public bool IsInterupted { get { return isInterupted; } set { isInterupted = value; } }
+        public bool IsTalking { get { return isTalking; } set { isTalking = value; } }
 
         /// <summary>
         /// Initializes variables upon scene awake

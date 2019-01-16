@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7281d37848e894e836d76a3d0b59b7, type: 3}
+  m_Name: AskingQuestion_Input
+  m_EditorClassIdentifier: 
+  inputPhrases:
+  - what is your name
+  - how are you feeling today
+  - have you been feeling well lately
+  - have you been taking your medicine regularly
+  - what are you coming in for today
+  - do you have any questions
+  - do you have any questions for me
+  threshold: 100

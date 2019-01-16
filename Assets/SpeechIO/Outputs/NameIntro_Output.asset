@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e323c48c8e974864eab391e6865e8caa, type: 3}
+  m_Name: NameIntro_Output
+  m_EditorClassIdentifier: 
+  outputPhrases:
+  - My name is Ryan.
+  - I'm Ryan.
+  - Ryan is who I am.
+  outputAudioClipList:
+  - {fileID: 11400000, guid: 2f8fd377d175c68448f7de37f676a09d, type: 2}
+  - {fileID: 11400000, guid: be23fdc01177cce4786cbd36f834cf68, type: 2}
+  - {fileID: 11400000, guid: c3ec3f65ddf9a084a9d0c882de9e517f, type: 2}

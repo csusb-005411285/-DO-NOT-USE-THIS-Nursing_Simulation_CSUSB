@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d09f23bef0df64090d669ac91fe7e8, type: 3}
+  m_Name: _SpeechOrganizerMasterList
+  m_EditorClassIdentifier: 
+  speechOrganizerArray:
+  - {fileID: 11400000, guid: 6e28fbc073d25b24da5d871b58990c33, type: 2}
+  - {fileID: 11400000, guid: 9f3891fffdecae44e97073c63041f41e, type: 2}
+  - {fileID: 11400000, guid: d7be08098244c334088f16e7b0597489, type: 2}
+  - {fileID: 11400000, guid: 78a86dbf428b18a4bbb6686354e97cab, type: 2}
+  - {fileID: 11400000, guid: 56784aaaf160b4d418c8456bb667a7f3, type: 2}

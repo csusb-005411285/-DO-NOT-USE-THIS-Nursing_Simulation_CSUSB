@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e323c48c8e974864eab391e6865e8caa, type: 3}
+  m_Name: Greeting_Output
+  m_EditorClassIdentifier: 
+  outputPhrases:
+  - hello there
+  - hi
+  - hi there
+  outputAudioClipList:
+  - {fileID: 11400000, guid: 6c9536de74d894f46bd6130937aabd86, type: 2}
+  - {fileID: 11400000, guid: 77f3fd84a9209f546a5d0725db0bc9f8, type: 2}
+  - {fileID: 11400000, guid: 20293264ea769ff4a8d424d1884956db, type: 2}

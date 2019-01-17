@@ -297,33 +297,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1151950010}
   m_Script: {fileID: 11500000, guid: d006a595596238340869c6fb6db03963, type: 3}
---- !u!114 &296033002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: AI Dialogue DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4883.0,"y":-5151.0},"zoomFactor":0.9988577,"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"UnityEngine.AudioSource|PlayOneShot|System.Void","_paramsInfo":"UnityEngine.AudioClip|System.Single"},"parameters":[{"_type":"UnityEngine.AudioClip","_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},{"_type":"System.Single","_value":{"$content":1.0,"$type":"System.Single"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"method":{"_baseInfo":"AI.PatientAI|set_IsInterupted|System.Void","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
-    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5315.0,"y":5349.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5420.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"43"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
-    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"StudentNurse":{"_value":2,"_name":"StudentNurse","_id":"4eb40877-c9b5-4d84-bf40-53fe5b5a983d","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
-    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":3}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 192544453}
-  - {fileID: 687189264}
-  - {fileID: 192544452}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Patient Ryan
-    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
-    _actorObject: {fileID: 192544452}
 --- !u!1 &348958767
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,33 +433,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voiceToText: {fileID: 2030013272}
---- !u!114 &752129460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
-  m_Name: AI Dialogue DialogueTree
-  m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4883.0,"y":-5151.0},"zoomFactor":0.9988577,"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"UnityEngine.AudioSource|PlayOneShot|System.Void","_paramsInfo":"UnityEngine.AudioClip|System.Single"},"parameters":[{"_type":"UnityEngine.AudioClip","_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},{"_type":"System.Single","_value":{"$content":1.0,"$type":"System.Single"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"method":{"_baseInfo":"AI.PatientAI|set_IsInterupted|System.Void","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
-    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5315.0,"y":5349.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5420.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"43"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
-    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
-    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"StudentNurse":{"_value":2,"_name":"StudentNurse","_id":"4eb40877-c9b5-4d84-bf40-53fe5b5a983d","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
-    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
-    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":3}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
-  _objectReferences:
-  - {fileID: 0}
-  - {fileID: 192544453}
-  - {fileID: 687189264}
-  - {fileID: 192544452}
-  _deserializationFailed: 0
-  _actorParameters:
-  - _keyName: Patient Ryan
-    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
-    _actorObject: {fileID: 192544452}
 --- !u!1 &906732244
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +480,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &980025065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c3f478ef69fbe04fa9ed3664a8a443e, type: 3}
+  m_Name: AI Dialogue DialogueTree
+  m_EditorClassIdentifier: 
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-3462.0,"y":-3768.0},"zoomFactor":0.7488657,"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"UnityEngine.AudioSource|PlayOneShot|System.Void","_paramsInfo":"UnityEngine.AudioClip|System.Single"},"parameters":[{"_type":"UnityEngine.AudioClip","_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},{"_type":"System.Single","_value":{"$content":1.0,"$type":"System.Single"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
+    Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5313.0,"y":5369.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5420.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"39"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+    Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
+    Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"StudentNurse":{"_value":2,"_name":"StudentNurse","_id":"4eb40877-c9b5-4d84-bf40-53fe5b5a983d","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
+    UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
+    Ryan","_id":"6a7e0380-9b7d-438b-9ab1-bc0b3a20079a","_actorObject":3}],"$type":"NodeCanvas.DialogueTrees.DialogueTree+DerivedSerializationData"}}'
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 192544453}
+  - {fileID: 687189264}
+  - {fileID: 192544452}
+  _deserializationFailed: 0
+  _actorParameters:
+  - _keyName: Patient Ryan
+    _id: 6a7e0380-9b7d-438b-9ab1-bc0b3a20079a
+    _actorObject: {fileID: 192544452}
 --- !u!1001 &1151950010
 Prefab:
   m_ObjectHideFlags: 0
@@ -603,11 +576,16 @@ Prefab:
       propertyPath: _objectReferences.Array.data[3]
       value: 
       objectReference: {fileID: 134521461}
+    - target: {fileID: 114576445003367860, guid: 02a0ca9e0d341f946bf92aa5223ab517,
+        type: 2}
+      propertyPath: _objectReferences.Array.data[4]
+      value: 
+      objectReference: {fileID: 2030013272}
     - target: {fileID: 114825194443661594, guid: 02a0ca9e0d341f946bf92aa5223ab517,
         type: 2}
       propertyPath: boundGraphSerialization
-      value: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-4883.0,"y":-5151.0},"zoomFactor":0.9988577,"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"UnityEngine.AudioSource|PlayOneShot|System.Void","_paramsInfo":"UnityEngine.AudioClip|System.Single"},"parameters":[{"_type":"UnityEngine.AudioClip","_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},{"_type":"System.Single","_value":{"$content":1.0,"$type":"System.Single"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"method":{"_baseInfo":"AI.PatientAI|set_IsInterupted|System.Void","_paramsInfo":"System.Boolean"},"parameter":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetProperty_Multiplatform"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
-        Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5315.0,"y":5349.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5420.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"43"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"43"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
+      value: '{"version":2.85,"type":"NodeCanvas.DialogueTrees.DialogueTree","translation":{"x":-3462.0,"y":-3768.0},"zoomFactor":0.7488657,"nodes":[{"_action":{"waitTime":{"_value":0.01},"$type":"NodeCanvas.Tasks.Actions.Wait"},"_position":{"x":5374.0,"y":5210.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"2"},{"_action":{"actions":[{"method":{"_baseInfo":"UnityEngine.AudioSource|PlayOneShot|System.Void","_paramsInfo":"UnityEngine.AudioClip|System.Single"},"parameters":[{"_type":"UnityEngine.AudioClip","_name":"Global/dialogueAudioClip","_targetVariableID":"c3d90ae0-d4ff-4b87-9ac1-12d1c1efa2f8"},{"_type":"System.Single","_value":{"$content":1.0,"$type":"System.Single"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"statement":{"_text":"[Global/patientDialogue]"},"$type":"NodeCanvas.Tasks.Actions.Say"},{"method":{"_baseInfo":"AI.PatientAI|AIDialogueFinished|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isGreetDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isNameIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isPlanIntroDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAskingQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"},{"setValue":{"_type":"System.Boolean","_value":{"$content":false,"$type":"System.Boolean"}},"targetType":"AI.PatientAI","fieldName":"isAnsweringQuestionDialogue","overrideAgent":{"_name":"AIPatient","_targetVariableID":"f48f22bd-a342-41ee-b4bc-167c9f43351d"},"$type":"NodeCanvas.Tasks.Actions.SetField"}],"$type":"NodeCanvas.Framework.ActionList"},"_actorName":"Patient
+        Ryan","_actorParameterID":"590856f7-6ea6-40e5-bf00-6206dd9fbe66","_position":{"x":5313.0,"y":5369.0},"$type":"NodeCanvas.DialogueTrees.ActionNode","$id":"5"},{"_position":{"x":5420.0,"y":5584.0},"$type":"NodeCanvas.DialogueTrees.FinishNode","$id":"39"}],"connections":[{"_sourceNode":{"$ref":"2"},"_targetNode":{"$ref":"5"},"$type":"NodeCanvas.DialogueTrees.DTConnection"},{"_sourceNode":{"$ref":"5"},"_targetNode":{"$ref":"39"},"$type":"NodeCanvas.DialogueTrees.DTConnection"}],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
         Blackboard","_variables":{"AIPatient":{"_value":1,"_name":"AIPatient","_id":"f48f22bd-a342-41ee-b4bc-167c9f43351d","$type":"NodeCanvas.Framework.Variable`1[[AI.PatientAI,
         Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"StudentNurse":{"_value":2,"_name":"StudentNurse","_id":"4eb40877-c9b5-4d84-bf40-53fe5b5a983d","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
         UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"}}},"derivedData":{"actorParameters":[{"_keyName":"Patient
@@ -627,17 +605,7 @@ Prefab:
         type: 2}
       propertyPath: _graph
       value: 
-      objectReference: {fileID: 752129460}
-    - target: {fileID: 114513696125019656, guid: 02a0ca9e0d341f946bf92aa5223ab517,
-        type: 2}
-      propertyPath: boolArrayTest.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114576445003367860, guid: 02a0ca9e0d341f946bf92aa5223ab517,
-        type: 2}
-      propertyPath: _objectReferences.Array.data[4]
-      value: 
-      objectReference: {fileID: 2030013272}
+      objectReference: {fileID: 980025065}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02a0ca9e0d341f946bf92aa5223ab517, type: 2}
   m_IsPrefabAsset: 0

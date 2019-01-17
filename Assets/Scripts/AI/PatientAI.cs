@@ -112,12 +112,20 @@ namespace AI
         /// <summary>
         /// Sets dialogue after finding the dialogue of type
         /// </summary>
-        public void SetDialogue()
+        public void SetDialogue(BehaviourTree behaviour)
         {
             if (gBlackboard)
             {
-                gBlackboard.SetValue("patientDialogue", dialogueString);
-                gBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+                if (behaviour.name == "AI_Interupted")
+                {
+                    gBlackboard.SetValue("patientDialogue", "Please let me finish!");
+                    gBlackboard.SetValue("dialogueAudioClip", null);
+                }
+                else
+                {
+                    gBlackboard.SetValue("patientDialogue", dialogueString);
+                    gBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+                }
             }
             else
             {
@@ -160,7 +168,7 @@ namespace AI
                 //get audio clip and string
                 if (parserManager.speechOrganizerWasTriggered[i])
                 {
-                    FindDialogue(i);
+                    //FindDialogue(i);
                 }
             }
         }
@@ -185,6 +193,7 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {
+            /*
             if (parserManager != null)
             {
                 Debug.Log(parserManager);
@@ -218,8 +227,8 @@ namespace AI
                     }
                 }
             }
+            */
             
-            /*
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
@@ -245,7 +254,6 @@ namespace AI
                 isAnsweringQuestionDialogue = true;
                 boolArrayTest[4] = false;
             }
-            */
         }
     }
 }

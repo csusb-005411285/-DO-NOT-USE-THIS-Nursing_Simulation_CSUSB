@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace AI.Test
 {
+    //test object for the unity editor that allows user to test various inputs through text parser
     //[CreateAssetMenu(menuName = "Test/Test Input Parsing")]
     public class _ParserTest : ScriptableObject
     {

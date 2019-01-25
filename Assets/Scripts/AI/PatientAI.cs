@@ -149,6 +149,20 @@ namespace AI
             }
         }
 
+        public bool IsDialogueFinalized(GameObject dialogueBoxElement_0, GameObject dialogueBoxElement_1)
+        {
+            if (dialogueBoxElement_0.activeSelf && dialogueBoxElement_1.activeSelf)
+            {
+                Debug.Log("AI is currently talking!");
+                return false;
+            }
+            else
+            {
+                Debug.Log("AI is done talking!");
+                return true;
+            }
+        }
+
         public void Interpret(Text speechText)
         {
             // start search
@@ -193,7 +207,7 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {
-            /*
+            
             if (parserManager != null)
             {
                 Debug.Log(parserManager);
@@ -227,8 +241,9 @@ namespace AI
                     }
                 }
             }
-            */
             
+            
+            /*
             if(boolArrayTest[0])
             {
                 isGreetDialogue = true;
@@ -254,6 +269,7 @@ namespace AI
                 isAnsweringQuestionDialogue = true;
                 boolArrayTest[4] = false;
             }
+            */
         }
     }
 }

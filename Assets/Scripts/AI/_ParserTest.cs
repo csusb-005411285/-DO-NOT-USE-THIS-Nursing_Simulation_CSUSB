@@ -26,7 +26,7 @@ namespace AI.Test
             Stopwatch sw = new Stopwatch();
             sw.Start();
 #pragma warning disable 0219
-            ParserManager parserManager = new ParserManager(speechOrganizerList);
+            ParserManager.Initialize(speechOrganizerList);
 #pragma warning restore 0219 //supress non usage warning
 
             UnityEngine.Debug.Log("Input: \"" + playerInputToTest + "\"");

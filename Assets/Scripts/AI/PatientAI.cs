@@ -32,7 +32,7 @@ namespace AI
         public AudioClip debugErrorSound;
 
         private bool isTalking = false;
-        private ParserManager parserManager;
+        //private ParserManager ParserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
@@ -43,8 +43,7 @@ namespace AI
         /// </summary>
         private void Awake()
         {
-            parserManager = new ParserManager(speechOrganizerList);
-            Debug.Log(parserManager);
+            ParserManager.Initialize(speechOrganizerList);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
         }
 
@@ -73,7 +72,7 @@ namespace AI
         /// </summary>
         public void FindDialogue(int speechElement)
         {
-            Speech.OutputClip[] outputClipList = parserManager.getOutputs();
+            Speech.OutputClip[] outputClipList = ParserManager.getOutputs();
 
             //FIXME handle multiple output clips
             foreach (Speech.OutputClip clip in outputClipList)
@@ -166,21 +165,21 @@ namespace AI
         public void Interpret(Text speechText)
         {
             // start search
-            parserManager.startSearch(speechText.text);
+            ParserManager.startSearch(speechText.text);
             speechText.text = "";
 
             Speech.OutputClip[] clipList;
             // check if search is null
             do
             {
-                clipList = parserManager.getOutputs();
+                clipList = ParserManager.getOutputs();
             } while (clipList == null);
 
             // then output results from parse
             for (int i = 0; i < clipList.Length; i++)
             {
                 //get audio clip and string
-                if (parserManager.speechOrganizerWasTriggered[i])
+                if (ParserManager.speechOrganizerWasTriggered[i])
                 {
                     //FindDialogue(i);
                 }
@@ -189,7 +188,7 @@ namespace AI
 
         public bool HasAudioClips()
         {
-            if (parserManager.getOutputs() == null)
+            if (ParserManager.getOutputs() == null)
             {
                 Debug.Log("Audio Clips for Spoken words are not present!");
                 return false;
@@ -207,15 +206,15 @@ namespace AI
         /// </summary>
         public void VerifyDialogueType()
         {
-            
-            if (parserManager != null)
-            {
-                Debug.Log(parserManager);
-                if (parserManager.speechOrganizerWasTriggered.Length != 0 && parserManager.speechOrganizerSetActive.Length != 0)
+            //FIXME this may have some unintended consequences... sorry.
+            //if (ParserManager != null)
+            //{
+               
+                if (ParserManager.speechOrganizerWasTriggered.Length != 0 && ParserManager.speechOrganizerSetActive.Length != 0)
                 {
-                    for (int i = 0; i < parserManager.speechOrganizerWasTriggered.Length; i++)
+                    for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
                     {
-                        if (parserManager.speechOrganizerWasTriggered[i])
+                        if (ParserManager.speechOrganizerWasTriggered[i])
                         {
                             switch (i)
                             {
@@ -236,11 +235,11 @@ namespace AI
                                     break;
                             }
 
-                            parserManager.speechOrganizerSetActive[i] = false;
+                            ParserManager.speechOrganizerSetActive[i] = false;
                         }
                     }
                 }
-            }
+            //}
             
             
             /*

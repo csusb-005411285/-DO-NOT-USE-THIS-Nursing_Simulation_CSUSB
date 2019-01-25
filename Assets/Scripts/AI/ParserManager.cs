@@ -6,20 +6,20 @@ using AI.Parser;
 namespace AI
 {
     //class that spawns inputParser threads and manages interaction with parser data
-    public class ParserManager
+    public static class ParserManager
     {
         //ParserManager should not exist more than once
         private static bool parserManagerExists = false;
 
         //private Thread parserThread = new Thread(inputParserJob);
 
-        public bool[] speechOrganizerSetActive;
+        public static bool[] speechOrganizerSetActive;
 
-        public bool[] speechOrganizerWasTriggered; //FIXME make this mirror ParserData in start job and get Output
+        public static bool[] speechOrganizerWasTriggered; //FIXME make this mirror ParserData in start job and get Output
 
-        public ParserManager(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
+        public static void Initialize(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
         {
-            if(parserManagerExists == true)
+            if(parserManagerExists == true) //this is a relic from an old age
             {
                 Debug.LogError("A ParserManager instance already exists.");
                 return;
@@ -36,14 +36,14 @@ namespace AI
 
         //void startSearch(inputText)
         //clear parser data during start jobs
-        private bool searchIsRunning = false;
+        private static bool searchIsRunning = false;
 
         /// <summary>
         /// Starts searching for a match between input and expected inputObjects, activate input objects with speechOrganizerSetActive[] array
         /// </summary>
         /// <param name="inputText">The text that the user is to say to the bot</param>
         /// <returns>True if search is started, false if search is still running</returns>
-        public bool startSearch(string inputString)
+        public static bool startSearch(string inputString)
         {
             string inputText = string.Copy(inputString);
             if (searchIsRunning == true)
@@ -96,7 +96,7 @@ namespace AI
             return true;    //return that search has started
         }
 
-        private void inputParserJob(string input)
+        private static void inputParserJob(string input)
         {
 
 #pragma warning disable 0219
@@ -109,7 +109,7 @@ namespace AI
         /// Returns a list of OutputClips that were triggered by input, returns null when StartSearch() is running
         /// </summary>
         /// <returns>array of type Speech.outputClip</returns>
-        public Speech.OutputClip[] getOutputs()
+        public static Speech.OutputClip[] getOutputs()
         {
             if (searchIsRunning == true)
             {

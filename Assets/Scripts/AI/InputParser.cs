@@ -4,13 +4,14 @@ using UnityEngine;
 namespace AI.Parser
 {
     //FIXME TEST ME
-    //the threaded logic for the input parser
+    //the threaded logic for the input parser //Jobs system and native container
     public class InputParser
     {
         private bool debugOutput = false;
 
         private string closestStringMatch; //closest matching string
         private int bestComparisonScore; //score of the closest matching string
+        private bool triggersThreshold = false; // true if at least one input passes the threshold
 
         //TODO account for wildcards and "important" words
         public InputParser(int threadNum, string input, bool debugOutput = false)
@@ -40,7 +41,7 @@ namespace AI.Parser
             foreach (string phrase in stringsToCompare) {
                 if (inputWordArray.Length <= GetWordCount(phrase))  //if input is shorter than phrase to compare to, just compare
                 {
-                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase);
+                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase, threshold);
                 }
                 else  //input is longer than phrase, roll through input sentence to see what section is closest
                 {
@@ -48,7 +49,7 @@ namespace AI.Parser
                     for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"");
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"", threshold);
                     }
                 }
             }
@@ -57,17 +58,29 @@ namespace AI.Parser
             ParserData.closestString[threadNum] = closestStringMatch;
             ParserData.closestStringScore[threadNum] = bestComparisonScore;
 
-            //FIXME broken, needs to account for threshold score somehow
             //100 means perfect match required, 50 means half match, 0 means basically anything matches
-            //calculate threshold passability
-            if (bestComparisonScore >= threshold)
+            if (triggersThreshold == true)
             {
                 ParserData.speechOrganizerWasTriggered[threadNum] = true;
             }
         }
 
-        //check if score is higher than current score, update highestComparisonScore & closestStringMatch
-        private void UpdateBestScore(int score, string inputString)
+        //determine if score is within the threshold limitations
+        private bool TriggersThreshold(float threshold, int score, string inputString)
+        {
+            int percent = score / inputString.Length;
+            if (percent >= threshold)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //check if score is higher than current score, keep lowest score, update highestComparisonScore & closestStringMatch
+        private void UpdateBestScore(int score, string inputString, float threshold)
         {   //TODO what to do in event of a score tie?
             if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+inputString); }
             if (score == bestComparisonScore)
@@ -78,6 +91,7 @@ namespace AI.Parser
             {
                 bestComparisonScore = score;
                 closestStringMatch = inputString;
+                triggersThreshold = TriggersThreshold(threshold, score, inputString);
             }
         }
 

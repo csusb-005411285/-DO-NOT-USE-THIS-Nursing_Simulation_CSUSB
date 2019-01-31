@@ -18,6 +18,7 @@ namespace AI
         public bool isPlanIntroDialogue;
         public bool isAskingQuestionDialogue;
         public bool isAnsweringQuestionDialogue;
+        public bool isMisunderstandingDialogue;
 
         //public bool[] speechTypeTriggered;
         public bool[] boolArrayTest;
@@ -148,20 +149,11 @@ namespace AI
             }
         }
 
-        public bool IsDialogueFinalized(GameObject dialogueBoxElement_0, GameObject dialogueBoxElement_1)
-        {
-            if (dialogueBoxElement_0.activeSelf && dialogueBoxElement_1.activeSelf)
-            {
-                Debug.Log("AI is currently talking!");
-                return false;
-            }
-            else
-            {
-                Debug.Log("AI is done talking!");
-                return true;
-            }
-        }
-
+        /// <summary>
+        /// Function for the parser manager to interpret what the student nurse said
+        /// Sets the audioClip and the text for the AI to speak in response to the student nurse
+        /// </summary>
+        /// <param name="speechText"></param>
         public void Interpret(Text speechText)
         {
             // start search
@@ -181,11 +173,15 @@ namespace AI
                 //get audio clip and string
                 if (ParserManager.speechOrganizerWasTriggered[i])
                 {
-                    //FindDialogue(i);
+                    FindDialogue(i);
                 }
             }
         }
 
+        /// <summary>
+        /// Debug function for state machine to check for any available audio clips
+        /// </summary>
+        /// <returns></returns>
         public bool HasAudioClips()
         {
             if (ParserManager.getOutputs() == null)
@@ -201,47 +197,78 @@ namespace AI
         }
 
         /// <summary>
+        /// Debug function for the state machine to check if the ParserManager.speechOrganizerWasTriggered is null or not
+        /// AI will undergo a misunderstanding behavior so it doesn't progress through the state machine
+        /// </summary>
+        /// <returns></returns>
+        public bool ParseManagerInUse()
+        {
+            if (ParserManager.speechOrganizerWasTriggered != null)
+            {
+                isMisunderstandingDialogue = false;
+                Debug.Log("ParseManager.speechOrganizerWasTriggered array is being used.");
+                return true;
+            }
+            else
+            {
+                isMisunderstandingDialogue = true;
+                Debug.LogError("ParseManager.speechOrganizerWasTriggered array is currently null! Cannot execute dialogue.");
+                return false;
+            }
+        }
+
+        /// <summary>
         /// A function for the BeahaviorTreeUpdate() that checks which dialogue type to play
         /// (boolArrayTest is used for testing at the moment)
         /// </summary>
         public void VerifyDialogueType()
         {
-            //FIXME this may have some unintended consequences... sorry.
-            //if (ParserManager != null)
-            //{
-               
-                if (ParserManager.speechOrganizerWasTriggered.Length != 0 && ParserManager.speechOrganizerSetActive.Length != 0)
-                {
-                    for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
-                    {
-                        if (ParserManager.speechOrganizerWasTriggered[i])
-                        {
-                            switch (i)
-                            {
-                                case 0:
-                                    isGreetDialogue = true;
-                                    break;
-                                case 1:
-                                    isNameIntroDialogue = true;
-                                    break;
-                                case 2:
-                                    isPlanIntroDialogue = true;
-                                    break;
-                                case 3:
-                                    isAskingQuestionDialogue = true;
-                                    break;
-                                case 4:
-                                    isAnsweringQuestionDialogue = true;
-                                    break;
-                            }
+            int noDialogueCount = 0;
 
-                            ParserManager.speechOrganizerSetActive[i] = false;
+            if (ParserManager.speechOrganizerWasTriggered.Length != 0 && ParserManager.speechOrganizerSetActive.Length != 0)
+            {
+                for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
+                {
+                    if (ParserManager.speechOrganizerWasTriggered[i])
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                isGreetDialogue = true;
+                                break;
+                            case 1:
+                                isNameIntroDialogue = true;
+                                break;
+                            case 2:
+                                isPlanIntroDialogue = true;
+                                break;
+                            case 3:
+                                isAskingQuestionDialogue = true;
+                                break;
+                            case 4:
+                                isAnsweringQuestionDialogue = true;
+                                break;
                         }
+
+                        ParserManager.speechOrganizerSetActive[i] = false;
+                    }
+                    else
+                    {
+                        noDialogueCount++;
                     }
                 }
-            //}
+            }
             
-            
+            if (noDialogueCount >= ParserManager.speechOrganizerWasTriggered.Length)
+            {
+                Debug.Log("AI doesn't understand what student nurse is saying!");
+                isMisunderstandingDialogue = true;
+            }
+            else
+            {
+                Debug.Log("AI understands what the student nurse is saying!");
+            }
+
             /*
             if(boolArrayTest[0])
             {

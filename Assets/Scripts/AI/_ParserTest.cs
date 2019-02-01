@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using AI.Parser;
 using System.Diagnostics;
 
@@ -39,7 +39,7 @@ namespace AI.Test
                     InputParser parserJob = new InputParser(i, playerInputToTest, verboseDebug);
 #pragma warning restore 0219 //supress non usage warning
 
-                    UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[i]+"; Score: "+ParserData.closestStringScore[i]);
+                    UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[i]+"; Score: "+ParserData.closestStringScore[i]+"; Triggers Threshold: "+ParserData.speechOrganizerWasTriggered[i]);
                 }
             }
             else   //test against specified input object
@@ -48,7 +48,7 @@ namespace AI.Test
                 InputParser parserJob = new InputParser(inputObjectToTestAgainst, playerInputToTest, verboseDebug);
 #pragma warning restore 0219 //supress non usage warning
 
-                UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[inputObjectToTestAgainst]+"; Score: "+ParserData.closestStringScore[inputObjectToTestAgainst]);
+                UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[inputObjectToTestAgainst]+"; Score: "+ParserData.closestStringScore[inputObjectToTestAgainst] + "; Triggers Threshold: " + ParserData.speechOrganizerWasTriggered[inputObjectToTestAgainst]);
             }
 
             sw.Stop();

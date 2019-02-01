@@ -93,7 +93,6 @@ namespace AI.Parser
         //check if score is higher than current score, keep lowest score, update highestComparisonScore & closestStringMatch
         private void UpdateBestScore(int score, string inputString, int threshold, string debugString = "")
         {   //TODO what to do in event of a score tie?
-            Debug.Log(inputString+":  "+score);
             if(debugString == "")
             {
                 debugString = inputString;

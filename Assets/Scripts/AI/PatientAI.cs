@@ -156,6 +156,12 @@ namespace AI
         /// <param name="speechText"></param>
         public void Interpret(Text speechText)
         {
+            // Check all speechOrganizerSetActive jobs as true and disable later
+            for (int i = 0; i < ParserManager.speechOrganizerSetActive.Length; i++)
+            {
+                ParserManager.speechOrganizerSetActive[i] = true;
+            }
+
             // start search
             ParserManager.startSearch(speechText.text);
             speechText.text = "";
@@ -213,6 +219,8 @@ namespace AI
             {
                 isMisunderstandingDialogue = true;
                 Debug.LogError("ParseManager.speechOrganizerWasTriggered array is currently null! Cannot execute dialogue.");
+                gBlackboard.SetValue("patientDialogue", "I'm sorry. Could you say that once more.");
+                gBlackboard.SetValue("dialogueAudioClip", null);
                 return false;
             }
         }
@@ -225,7 +233,7 @@ namespace AI
         {
             int noDialogueCount = 0;
 
-            if (ParserManager.speechOrganizerWasTriggered.Length != 0 && ParserManager.speechOrganizerSetActive.Length != 0)
+            if (ParserManager.speechOrganizerWasTriggered.Length != 0)
             {
                 for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
                 {
@@ -254,6 +262,7 @@ namespace AI
                     }
                     else
                     {
+                        Debug.Log("Speech Oraganizer was Triggered failed: " + noDialogueCount);
                         noDialogueCount++;
                     }
                 }
@@ -263,6 +272,8 @@ namespace AI
             {
                 Debug.Log("AI doesn't understand what student nurse is saying!");
                 isMisunderstandingDialogue = true;
+                gBlackboard.SetValue("patientDialogue", "I'm sorry. Could you say that once more.");
+                gBlackboard.SetValue("dialogueAudioClip", null);
             }
             else
             {

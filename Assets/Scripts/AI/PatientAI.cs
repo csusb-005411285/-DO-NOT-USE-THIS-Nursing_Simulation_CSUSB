@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -156,6 +156,11 @@ namespace AI
         /// <param name="speechText"></param>
         public void Interpret(Text speechText)
         {
+            for (int i = 0; i < ParserManager.speechOrganizerSetActive.Length; i++)
+            {
+                ParserManager.speechOrganizerSetActive[i] = true;
+            }
+
             // start search
             ParserManager.startSearch(speechText.text);
             speechText.text = "";
@@ -225,7 +230,7 @@ namespace AI
         {
             int noDialogueCount = 0;
 
-            if (ParserManager.speechOrganizerWasTriggered.Length != 0 && ParserManager.speechOrganizerSetActive.Length != 0)
+            if (ParserManager.speechOrganizerSetActive.Length != 0)
             {
                 for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
                 {

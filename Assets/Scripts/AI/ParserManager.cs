@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Threading;
 using AI.Parser;
@@ -58,6 +58,7 @@ namespace AI
             {
                 if (speechOrganizerSetActive[i] == true)
                 {
+                    ParserData.speechOrganizerSetActive[i] = true;
                     anOrganizerIsActive = true;
                 }
             }

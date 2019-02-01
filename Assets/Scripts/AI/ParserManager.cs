@@ -15,7 +15,7 @@ namespace AI
 
         public static bool[] speechOrganizerSetActive;
 
-        public static bool[] speechOrganizerWasTriggered; //FIXME make this mirror ParserData in start job and get Output
+        public static bool[] speechOrganizerWasTriggered;
 
         public static void Initialize(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
         {
@@ -111,6 +111,7 @@ namespace AI
         /// <returns>array of type Speech.outputClip</returns>
         public static Speech.OutputClip[] getOutputs()
         {
+            speechOrganizerWasTriggered = ParserData.speechOrganizerWasTriggered;
             if (searchIsRunning == true)
             {
                 return null;

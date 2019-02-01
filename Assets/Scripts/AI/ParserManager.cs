@@ -19,11 +19,6 @@ namespace AI
 
         public static void Initialize(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
         {
-            if(parserManagerExists == true) //this is a relic from an old age
-            {
-                Debug.LogError("A ParserManager instance already exists.");
-                return;
-            }
             if (speechOrganizerListObj == null)
             {
                 Debug.LogError("ParserData Initialization Error: SpeechOrganizerArray is null.");

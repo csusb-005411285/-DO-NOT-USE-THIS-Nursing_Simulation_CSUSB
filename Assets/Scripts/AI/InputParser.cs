@@ -9,6 +9,7 @@ namespace AI.Parser
     {
         private bool debugOutput = false;
 
+        private string ClosestStringDebug; //closest string match with extra info
         private string closestStringMatch; //closest matching string
         private int bestComparisonScore; //score of the closest matching string
         private bool triggersThreshold = false; // true if at least one input passes the threshold
@@ -46,10 +47,11 @@ namespace AI.Parser
                 else  //input is longer than phrase, roll through input sentence to see what section is closest
                 {
                     int head = 0, tail = GetWordCount(phrase);
-                    for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
+                    for (int i = 0; i <= (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"", threshold);
+                        head++;
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase, threshold, phrase + " >> \"" + inputSection + "\"");
                     }
                 }
             }
@@ -89,9 +91,14 @@ namespace AI.Parser
         }
 
         //check if score is higher than current score, keep lowest score, update highestComparisonScore & closestStringMatch
-        private void UpdateBestScore(int score, string inputString, int threshold)
+        private void UpdateBestScore(int score, string inputString, int threshold, string debugString = "")
         {   //TODO what to do in event of a score tie?
-            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+inputString); }
+            Debug.Log(inputString+":  "+score);
+            if(debugString == "")
+            {
+                debugString = inputString;
+            }
+            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+debugString); }
             if (score == bestComparisonScore)
             {
                 //Debug.LogWarning("equal closeness: " + closestStringMatch + " & " + inputString);
@@ -100,6 +107,7 @@ namespace AI.Parser
             {
                 bestComparisonScore = score;
                 closestStringMatch = inputString;
+                ClosestStringDebug = debugString;
                 triggersThreshold = TriggersThreshold(threshold, score, inputString);
             }
         }

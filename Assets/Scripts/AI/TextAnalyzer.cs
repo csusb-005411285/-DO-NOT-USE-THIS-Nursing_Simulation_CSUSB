@@ -4,14 +4,15 @@ using UnityEngine;
 
 namespace AI.Parser
 {
+    public struct analysisData
+    {
+        public string[] importantWords;
+    }
+
     //TODO make struct accessable outside of this class
     //analyzes text from input objects to look for keywords or wildcard words
     public static class TextAnalyzer
     {
-        public struct analysisData
-        {
-            public string[] importantWords;
-        }
 
         //return struct of important words
         public static analysisData Analyze(string input)

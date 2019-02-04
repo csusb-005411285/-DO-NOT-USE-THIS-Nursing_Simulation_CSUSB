@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using AI.Parser;
 using System.Diagnostics;
 
 namespace AI.Test
 {
+    //test object for the unity editor that allows user to test various inputs through text parser
     //[CreateAssetMenu(menuName = "Test/Test Input Parsing")]
     public class _ParserTest : ScriptableObject
     {
@@ -25,7 +26,7 @@ namespace AI.Test
             Stopwatch sw = new Stopwatch();
             sw.Start();
 #pragma warning disable 0219
-            ParserManager parserManager = new ParserManager(speechOrganizerList);
+            ParserManager.Initialize(speechOrganizerList);
 #pragma warning restore 0219 //supress non usage warning
 
             UnityEngine.Debug.Log("Input: \"" + playerInputToTest + "\"");
@@ -38,7 +39,7 @@ namespace AI.Test
                     InputParser parserJob = new InputParser(i, playerInputToTest, verboseDebug);
 #pragma warning restore 0219 //supress non usage warning
 
-                    UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[i]+"; Score: "+ParserData.closestStringScore[i]);
+                    UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[i]+"; Score: "+ParserData.closestStringScore[i]+"; Triggers Threshold: "+ParserData.speechOrganizerWasTriggered[i]);
                 }
             }
             else   //test against specified input object
@@ -47,7 +48,7 @@ namespace AI.Test
                 InputParser parserJob = new InputParser(inputObjectToTestAgainst, playerInputToTest, verboseDebug);
 #pragma warning restore 0219 //supress non usage warning
 
-                UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[inputObjectToTestAgainst]+"; Score: "+ParserData.closestStringScore[inputObjectToTestAgainst]);
+                UnityEngine.Debug.Log("Closest String: "+ParserData.closestString[inputObjectToTestAgainst]+"; Score: "+ParserData.closestStringScore[inputObjectToTestAgainst] + "; Triggers Threshold: " + ParserData.speechOrganizerWasTriggered[inputObjectToTestAgainst]);
             }
 
             sw.Stop();

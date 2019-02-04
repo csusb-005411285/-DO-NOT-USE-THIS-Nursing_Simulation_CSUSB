@@ -1,16 +1,18 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace AI.Parser
 {
     //FIXME TEST ME
-    //the threaded logic for the input parser
+    //the threaded logic for the input parser //Jobs system and native container
     public class InputParser
     {
         private bool debugOutput = false;
 
+        private string ClosestStringDebug; //closest string match with extra info
         private string closestStringMatch; //closest matching string
         private int bestComparisonScore; //score of the closest matching string
+        private bool triggersThreshold = false; // true if at least one input passes the threshold
 
         //TODO account for wildcards and "important" words
         public InputParser(int threadNum, string input, bool debugOutput = false)
@@ -21,7 +23,7 @@ namespace AI.Parser
             bestComparisonScore = 100;
 
             string[] stringsToCompare = ParserData.speechOrganizerArray[threadNum].speechInput.inputPhrases;
-            float threshold = ParserData.speechOrganizerArray[threadNum].speechInput.threshold;
+            int threshold = ParserData.speechOrganizerArray[threadNum].speechInput.threshold;
 
             for (int i = 0; i < stringsToCompare.Length; i++)   //lowercase all strings for comparison
             {
@@ -40,15 +42,16 @@ namespace AI.Parser
             foreach (string phrase in stringsToCompare) {
                 if (inputWordArray.Length <= GetWordCount(phrase))  //if input is shorter than phrase to compare to, just compare
                 {
-                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase);
+                    UpdateBestScore(LevenshteinDistance(phrase, input), phrase, threshold);
                 }
                 else  //input is longer than phrase, roll through input sentence to see what section is closest
                 {
                     int head = 0, tail = GetWordCount(phrase);
-                    for (int i = 0; i < (inputWordArray.Length - GetWordCount(phrase)); i++)
+                    for (int i = 0; i <= (inputWordArray.Length - GetWordCount(phrase)); i++)
                     {
                         string inputSection = String.Join(" ", inputWordArray, head, tail);
-                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase+" >> \""+inputSection+"\"");
+                        head++;
+                        UpdateBestScore(LevenshteinDistance(phrase, inputSection), phrase, threshold, phrase + " >> \"" + inputSection + "\"");
                     }
                 }
             }
@@ -56,28 +59,55 @@ namespace AI.Parser
             //update ParserData
             ParserData.closestString[threadNum] = closestStringMatch;
             ParserData.closestStringScore[threadNum] = bestComparisonScore;
-
-            //FIXME broken, needs to account for threshold score somehow
+            triggersThreshold = TriggersThreshold(threshold, bestComparisonScore, closestStringMatch);
             //100 means perfect match required, 50 means half match, 0 means basically anything matches
-            //calculate threshold passability
-            if (bestComparisonScore >= threshold)
+            if (triggersThreshold == true)
             {
                 ParserData.speechOrganizerWasTriggered[threadNum] = true;
             }
         }
 
-        //check if score is higher than current score, update highestComparisonScore & closestStringMatch
-        private void UpdateBestScore(int score, string inputString)
+        //determine if score is within the threshold limitations
+        private bool TriggersThreshold(int threshold, int score, string inputString)
+        {
+            float percent = (float)score / (float)inputString.Length;
+            if (percent == 0)   //perfect score
+            {
+                return true;
+            }
+            else
+            {
+                percent = percent * 100;
+            }
+
+            if (percent >= threshold)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //check if score is higher than current score, keep lowest score, update highestComparisonScore & closestStringMatch
+        private void UpdateBestScore(int score, string inputString, int threshold, string debugString = "")
         {   //TODO what to do in event of a score tie?
-            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+inputString); }
+            if(debugString == "")
+            {
+                debugString = inputString;
+            }
+            if (debugOutput == true) { Debug.Log("score: "+score+"; input: "+debugString); }
             if (score == bestComparisonScore)
             {
-                Debug.LogWarning("equal closeness: " + closestStringMatch + " & " + inputString);
+                //Debug.LogWarning("equal closeness: " + closestStringMatch + " & " + inputString);
             }
             if (score < bestComparisonScore)
             {
                 bestComparisonScore = score;
                 closestStringMatch = inputString;
+                ClosestStringDebug = debugString;
+                triggersThreshold = TriggersThreshold(threshold, score, inputString);
             }
         }
 

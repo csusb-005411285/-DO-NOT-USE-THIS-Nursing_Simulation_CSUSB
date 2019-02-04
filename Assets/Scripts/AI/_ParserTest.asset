@@ -17,4 +17,4 @@ MonoBehaviour:
   timerOn: 0
   onlyShowPassingThreshold: 0
   inputObjectToTestAgainst: -1
-  playerInputToTest: Hello World!
+  playerInputToTest: hello there my name is brett

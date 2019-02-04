@@ -7,6 +7,9 @@ public class ExceptionMessageCanvasScript : MonoBehaviour {
 
     private Text exceptionMessageCanvasTextObject;
 
+    [SerializeField]
+    private bool showExceptionsOnScreen = false;
+
     void Awake()
     {
         Canvas[] canvasObjects = GetComponents<Canvas>();
@@ -23,7 +26,7 @@ public class ExceptionMessageCanvasScript : MonoBehaviour {
 
     private void DisplayMessageOnCanvas(string logString, string stackTrace, LogType type)
     {
-        if (type == LogType.Exception)
+        if (showExceptionsOnScreen && type == LogType.Exception)
         {
             this.exceptionMessageCanvasObject.scaleFactor = 2;
             this.exceptionMessageCanvasTextObject.text = logString + "\n Check the console for stack trace.";

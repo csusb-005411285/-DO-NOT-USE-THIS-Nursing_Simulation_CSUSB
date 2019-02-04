@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3f1cd5a0bb80545a1418e114ea4e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showExceptionsOnScreen: 0
 --- !u!114 &423534026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +349,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Any exceptions would be displayed here.
+  m_Text: Exceptions would be displayed here.
 --- !u!222 &740973109
 CanvasRenderer:
   m_ObjectHideFlags: 0

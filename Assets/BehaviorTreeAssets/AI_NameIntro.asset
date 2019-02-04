@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a686a47eee2fa44cb0a34b5d86e4d5e, type: 3}
   m_Name: AI_NameIntro
   m_EditorClassIdentifier: 
-  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3211.0,"y":-3555.0},"zoomFactor":0.7148791,"nodes":[{"_action":{"actions":[{"method":{"_baseInfo":"AI.PatientAI|FindDialogue|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"}}],"parameterIsByRef":[false,false],"returnValue":{},"_isDisabled":true,"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"AI.PatientAI|SetDialogue|System.Void","_paramsInfo":""},"parameters":[],"parameterIsByRef":[],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"dialogueTreeController":{"_name":"Global/AIDialogueTreeController","_targetVariableID":"89f2beda-b109-40bb-acbd-9945fa97dacc"},"$type":"NodeCanvas.Tasks.Actions.StartDialogueTree"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5370.0,"y":5469.0},"_tag":"Element
+  _serializedGraph: '{"version":2.85,"type":"NodeCanvas.BehaviourTrees.BehaviourTree","translation":{"x":-3211.0,"y":-3555.0},"zoomFactor":0.7148791,"nodes":[{"_action":{"actions":[{"method":{"_baseInfo":"AI.PatientAI|FindDialogue|System.Void","_paramsInfo":"System.Int32"},"parameters":[{"_type":"System.Int32","_value":{"$content":1,"$type":"System.Int32"}}],"parameterIsByRef":[false,false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"method":{"_baseInfo":"AI.PatientAI|SetDialogue|System.Void","_paramsInfo":"NodeCanvas.BehaviourTrees.BehaviourTree"},"parameters":[{"_type":"NodeCanvas.BehaviourTrees.BehaviourTree","_value":{"$content":1,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree"}}],"parameterIsByRef":[false],"returnValue":{},"$type":"NodeCanvas.Tasks.Actions.ExecuteFunction_Multiplatform"},{"dialogueTreeController":{"_name":"Global/AIDialogueTreeController","_targetVariableID":"89f2beda-b109-40bb-acbd-9945fa97dacc"},"$type":"NodeCanvas.Tasks.Actions.StartDialogueTree"}],"$type":"NodeCanvas.Framework.ActionList"},"_position":{"x":5370.0,"y":5469.0},"_tag":"Element
     1 of SpeechOrganizer Array Scriptable Object","_comment":"Finds and sets dialogue
     using methods from PatientAI.cs, and starts the AI Dialogue from the global blackboard","$type":"NodeCanvas.BehaviourTrees.ActionNode","$id":"2"}],"connections":[],"primeNode":{"$ref":"2"},"localBlackboard":{"_name":"Local
     Blackboard","_variables":{}},"derivedData":{"repeat":true,"$type":"NodeCanvas.BehaviourTrees.BehaviourTree+DerivedSerializationData"}}'
-  _objectReferences: []
+  _objectReferences:
+  - {fileID: 0}
+  - {fileID: 11400000}
   _deserializationFailed: 0
   repeat: 1
   updateInterval: 0

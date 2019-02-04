@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +18,7 @@ namespace AI
         public bool isPlanIntroDialogue;
         public bool isAskingQuestionDialogue;
         public bool isAnsweringQuestionDialogue;
+        public bool isMisunderstandingDialogue;
 
         //public bool[] speechTypeTriggered;
         public bool[] boolArrayTest;
@@ -32,7 +33,7 @@ namespace AI
         public AudioClip debugErrorSound;
 
         private bool isTalking = false;
-        private ParserManager parserManager;
+        //private ParserManager ParserManager;
         private GlobalBlackboard gBlackboard;      // Global Blackboard is used to access the variables that all Node Canvas trees can used
 
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
@@ -43,8 +44,7 @@ namespace AI
         /// </summary>
         private void Awake()
         {
-            parserManager = new ParserManager(speechOrganizerList);
-            Debug.Log(parserManager);
+            ParserManager.Initialize(speechOrganizerList);
             gBlackboard = FindObjectOfType<GlobalBlackboard>();    // Initializes gBlackBoard but not before state machine plays
         }
 
@@ -73,7 +73,7 @@ namespace AI
         /// </summary>
         public void FindDialogue(int speechElement)
         {
-            Speech.OutputClip[] outputClipList = parserManager.getOutputs();
+            Speech.OutputClip[] outputClipList = ParserManager.getOutputs();
 
             //FIXME handle multiple output clips
             foreach (Speech.OutputClip clip in outputClipList)
@@ -112,12 +112,20 @@ namespace AI
         /// <summary>
         /// Sets dialogue after finding the dialogue of type
         /// </summary>
-        public void SetDialogue()
+        public void SetDialogue(BehaviourTree behaviour)
         {
             if (gBlackboard)
             {
-                gBlackboard.SetValue("patientDialogue", dialogueString);
-                gBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+                if (behaviour.name == "AI_Interupted")
+                {
+                    gBlackboard.SetValue("patientDialogue", "Please let me finish!");
+                    gBlackboard.SetValue("dialogueAudioClip", null);
+                }
+                else
+                {
+                    gBlackboard.SetValue("patientDialogue", dialogueString);
+                    gBlackboard.SetValue("dialogueAudioClip", dialogueAudioClip);
+                }
             }
             else
             {
@@ -141,33 +149,48 @@ namespace AI
             }
         }
 
+        /// <summary>
+        /// Function for the parser manager to interpret what the student nurse said
+        /// Sets the audioClip and the text for the AI to speak in response to the student nurse
+        /// </summary>
+        /// <param name="speechText"></param>
         public void Interpret(Text speechText)
         {
+            // Check all speechOrganizerSetActive jobs as true and disable later
+            for (int i = 0; i < ParserManager.speechOrganizerSetActive.Length; i++)
+            {
+                ParserManager.speechOrganizerSetActive[i] = true;
+            }
+
             // start search
-            parserManager.startSearch(speechText.text);
+            ParserManager.startSearch(speechText.text);
             speechText.text = "";
 
             Speech.OutputClip[] clipList;
             // check if search is null
             do
             {
-                clipList = parserManager.getOutputs();
+                clipList = ParserManager.getOutputs();
             } while (clipList == null);
 
             // then output results from parse
             for (int i = 0; i < clipList.Length; i++)
             {
                 //get audio clip and string
-                if (parserManager.speechOrganizerWasTriggered[i])
+                if (ParserManager.speechOrganizerWasTriggered[i])
                 {
                     FindDialogue(i);
                 }
             }
         }
 
+        /// <summary>
+        /// Debug function for state machine to check for any available audio clips
+        /// </summary>
+        /// <returns></returns>
         public bool HasAudioClips()
         {
-            if (parserManager.getOutputs() == null)
+            if (ParserManager.getOutputs() == null)
             {
                 Debug.Log("Audio Clips for Spoken words are not present!");
                 return false;
@@ -180,45 +203,83 @@ namespace AI
         }
 
         /// <summary>
+        /// Debug function for the state machine to check if the ParserManager.speechOrganizerWasTriggered is null or not
+        /// AI will undergo a misunderstanding behavior so it doesn't progress through the state machine
+        /// </summary>
+        /// <returns></returns>
+        public bool ParseManagerInUse()
+        {
+            if (ParserManager.speechOrganizerWasTriggered != null)
+            {
+                isMisunderstandingDialogue = false;
+                Debug.Log("ParseManager.speechOrganizerWasTriggered array is being used.");
+                return true;
+            }
+            else
+            {
+                isMisunderstandingDialogue = true;
+                Debug.LogError("ParseManager.speechOrganizerWasTriggered array is currently null! Cannot execute dialogue.");
+                gBlackboard.SetValue("patientDialogue", "I'm sorry. Could you say that once more.");
+                gBlackboard.SetValue("dialogueAudioClip", null);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// A function for the BeahaviorTreeUpdate() that checks which dialogue type to play
         /// (boolArrayTest is used for testing at the moment)
         /// </summary>
         public void VerifyDialogueType()
         {
-            if (parserManager != null)
-            {
-                Debug.Log(parserManager);
-                if (parserManager.speechOrganizerWasTriggered.Length != 0 && parserManager.speechOrganizerSetActive.Length != 0)
-                {
-                    for (int i = 0; i < parserManager.speechOrganizerWasTriggered.Length; i++)
-                    {
-                        if (parserManager.speechOrganizerWasTriggered[i])
-                        {
-                            switch (i)
-                            {
-                                case 0:
-                                    isGreetDialogue = true;
-                                    break;
-                                case 1:
-                                    isNameIntroDialogue = true;
-                                    break;
-                                case 2:
-                                    isPlanIntroDialogue = true;
-                                    break;
-                                case 3:
-                                    isAskingQuestionDialogue = true;
-                                    break;
-                                case 4:
-                                    isAnsweringQuestionDialogue = true;
-                                    break;
-                            }
+            int noDialogueCount = 0;
 
-                            parserManager.speechOrganizerSetActive[i] = false;
+            if (ParserManager.speechOrganizerWasTriggered.Length != 0)
+            {
+                for (int i = 0; i < ParserManager.speechOrganizerWasTriggered.Length; i++)
+                {
+                    if (ParserManager.speechOrganizerWasTriggered[i])
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                isGreetDialogue = true;
+                                break;
+                            case 1:
+                                isNameIntroDialogue = true;
+                                break;
+                            case 2:
+                                isPlanIntroDialogue = true;
+                                break;
+                            case 3:
+                                isAskingQuestionDialogue = true;
+                                break;
+                            case 4:
+                                isAnsweringQuestionDialogue = true;
+                                break;
                         }
+
+                        ParserManager.speechOrganizerSetActive[i] = false;
+                    }
+                    else
+                    {
+                        Debug.Log("Speech Oraganizer was Triggered failed: " + noDialogueCount);
+                        noDialogueCount++;
                     }
                 }
             }
             
+            if (noDialogueCount >= ParserManager.speechOrganizerWasTriggered.Length)
+            {
+                Debug.Log("AI doesn't understand what student nurse is saying!");
+                isMisunderstandingDialogue = true;
+                gBlackboard.SetValue("patientDialogue", "I'm sorry. Could you say that once more.");
+                gBlackboard.SetValue("dialogueAudioClip", null);
+            }
+            else
+            {
+                Debug.Log("AI understands what the student nurse is saying!");
+            }
+
             /*
             if(boolArrayTest[0])
             {

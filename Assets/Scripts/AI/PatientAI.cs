@@ -75,36 +75,58 @@ namespace AI
         {
             Speech.OutputClip[] outputClipList = ParserManager.getOutputs();
 
-            //FIXME handle multiple output clips
-            foreach (Speech.OutputClip clip in outputClipList)
+            if (outputClipList == null)
             {
-                //FIXME
-                //BROKEN needs to be able to handle multiple dialogues at once
-            }
+                Debug.LogError("Output Clip List is not found!");
+                Debug.LogError("Dialogue cannot play now!");
 
-            if (outputClipList.Length != 0)
+                dialogueString = debugErrorString;
+                dialogueAudioClip = debugErrorSound;
+            }
+            else
             {
-                if (outputClipList[0].outputPhrase == null || outputClipList[0].GetAudioClip() == null)
+                //FIXME handle multiple output clips
+                foreach (Speech.OutputClip clip in outputClipList)
                 {
-                    dialogueString = outputClipList[0].outputPhrase;
-                    dialogueAudioClip = outputClipList[0].GetAudioClip();
+                    //FIXME
+                    //BROKEN needs to be able to handle multiple dialogues at once
+                }
+
+                if (outputClipList.Length != 0)
+                {
+                    if (outputClipList[0] == null)
+                    {
+                        Debug.LogError("Output Clip List element is not found!");
+                        Debug.LogError("Dialogue cannot play now!");
+
+                        dialogueString = debugErrorString;
+                        dialogueAudioClip = debugErrorSound;
+                    }
+                    else
+                    {
+                        if (outputClipList[0].outputPhrase == null || outputClipList[0].GetAudioClip() == null)
+                        {
+                            dialogueString = outputClipList[0].outputPhrase;
+                            dialogueAudioClip = outputClipList[0].GetAudioClip();
+                        }
+                        else
+                        {
+                            Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null!");
+                            Debug.LogError("Dialogue cannot play now!");
+
+                            dialogueString = debugErrorString;
+                            dialogueAudioClip = debugErrorSound;
+                        }
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null!");
+                    Debug.LogError("Output Clip List is empty!");
                     Debug.LogError("Dialogue cannot play now!");
 
                     dialogueString = debugErrorString;
                     dialogueAudioClip = debugErrorSound;
                 }
-            }
-            else
-            {
-                Debug.LogError("Output Clip List is empty!");
-                Debug.LogError("Dialogue cannot play now!");
-
-                dialogueString = debugErrorString;
-                dialogueAudioClip = debugErrorSound;
             }
 
         }
@@ -190,15 +212,27 @@ namespace AI
         /// <returns></returns>
         public bool HasAudioClips()
         {
+            Speech.OutputClip[] outputClipList = ParserManager.getOutputs();
+
             if (ParserManager.getOutputs() == null)
             {
-                Debug.Log("Audio Clips for Spoken words are not present!");
+                Debug.Log("Audio Clips List is not present!");
                 return false;
             }
             else
             {
-                Debug.Log("Audio Clips for Spoken words are present!");
-                return true;
+                Debug.Log("Audio Clips List is present!");
+
+                if (outputClipList[0] == null)
+                {
+                    Debug.Log("Audio Clips List element is not present!");
+                    return false;
+                }
+                else
+                {
+                    Debug.Log("Audio Clips List element is present!");
+                    return true;
+                }
             }
         }
 

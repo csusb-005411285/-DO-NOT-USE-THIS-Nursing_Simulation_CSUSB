@@ -39,6 +39,8 @@ namespace AI
         public bool GBlackboardReady { get { return gBlackboard; } }    // Checks to see if gBlackboard is initialized
         public bool IsTalking { get { return isTalking; } set { isTalking = value; } }  // Checks if AI is talking in each state
 
+        public Queue<int> speechQueue = new Queue<int>();
+
         /// <summary>
         /// Initializes variables upon scene awake
         /// </summary>
@@ -56,29 +58,19 @@ namespace AI
         public void BehaviorTreeUpdate()
         {
             GetComponent<BehaviourTreeOwner>().repeat = true;   // Enabled repeat for update behavior
-
             //VerifyDialogueType();
         }
 
         /// <summary>
         /// Used to find a dialogue from scriptable object hierarchy starting from "speechOragnizerList"
-        /// Element 0: Greeting Speech
-        /// Element 1: NameIntro Speech
-        /// Element 2: PlanIntro Speech
-        /// Element 3: AskingQuestions Speech
-        /// Element 4: AnsweringQuestions Speech
-        /// Element 5: AddressingIssues Speech
-        /// ...
-        /// (Elements of Speech will be added over time)
         /// </summary>
-        public void FindDialogue(int speechElement)
+        public void FindDialogue()
         {
             Speech.OutputClip[] outputClipList = ParserManager.getOutputs();
 
             if (outputClipList == null)
             {
-                Debug.LogError("Output Clip List is not found!");
-                Debug.LogError("Dialogue cannot play now!");
+                Debug.LogError("Output Clip List is not found! Dialogue cannot play now!");
 
                 dialogueString = debugErrorString;
                 dialogueAudioClip = debugErrorSound;
@@ -90,14 +82,14 @@ namespace AI
                 {
                     //FIXME
                     //BROKEN needs to be able to handle multiple dialogues at once
+
                 }
 
                 if (outputClipList.Length != 0)
                 {
                     if (outputClipList[0] == null)
                     {
-                        Debug.LogError("Output Clip List element is not found!");
-                        Debug.LogError("Dialogue cannot play now!");
+                        Debug.LogError("Output Clip List element is not found! Dialogue cannot play now!");
 
                         dialogueString = debugErrorString;
                         dialogueAudioClip = debugErrorSound;
@@ -111,8 +103,7 @@ namespace AI
                         }
                         else
                         {
-                            Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null!");
-                            Debug.LogError("Dialogue cannot play now!");
+                            Debug.LogError("Output Clip List is not empty, but element(s) output phrase and/or audio clip are null! Dialogue cannot play now!");
 
                             dialogueString = debugErrorString;
                             dialogueAudioClip = debugErrorSound;
@@ -121,8 +112,7 @@ namespace AI
                 }
                 else
                 {
-                    Debug.LogError("Output Clip List is empty!");
-                    Debug.LogError("Dialogue cannot play now!");
+                    Debug.LogError("Output Clip List is empty! Dialogue cannot play now!");
 
                     dialogueString = debugErrorString;
                     dialogueAudioClip = debugErrorSound;
@@ -201,7 +191,7 @@ namespace AI
                 //get audio clip and string
                 if (ParserManager.speechOrganizerWasTriggered[i])
                 {
-                    FindDialogue(i);
+                    FindDialogue();
                 }
             }
         }
@@ -261,9 +251,10 @@ namespace AI
 
         /// <summary>
         /// A function for the BeahaviorTreeUpdate() that checks which dialogue type to play
+        /// Also adds the dialogue type to the queue
         /// (boolArrayTest is used for testing at the moment)
         /// </summary>
-        public void VerifyDialogueType()
+        public void EnqueueDialogue()
         {
             int noDialogueCount = 0;
 
@@ -291,8 +282,8 @@ namespace AI
                                 isAnsweringQuestionDialogue = true;
                                 break;
                         }
-
-                        ParserManager.speechOrganizerSetActive[i] = false;
+                        speechQueue.Enqueue(i);
+                       //ParserManager.speechOrganizerSetActive[i] = false;
                     }
                     else
                     {
@@ -300,6 +291,8 @@ namespace AI
                         noDialogueCount++;
                     }
                 }
+                Debug.Log("Items in Speech Queue: " + speechQueue.Count);
+                Debug.Log("First Speech Element in Speech Queue: " + speechQueue.Peek());
             }
             
             if (noDialogueCount >= ParserManager.speechOrganizerWasTriggered.Length)
@@ -341,6 +334,27 @@ namespace AI
                 boolArrayTest[4] = false;
             }
             */
+        }
+
+        /// <summary>
+        /// Dequeues the oldest speech in the list
+        /// </summary>
+        public void DequeueDialogue()
+        {
+            speechQueue.Dequeue();
+            Debug.Log("Items in Speech Queue: " + speechQueue.Count);
+            Debug.Log("First Speech Element in Speech Queue: " + speechQueue.Peek());
+        }
+
+        /// <summary>
+        /// Checks to see if the queue count is empty. If so, then the AI would go back into a Wait and Listen state.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public bool QueueDialogueCount(int count = 0)
+        {
+            Debug.Log("AI Dialogue in Queue: " + speechQueue.Count);
+            return speechQueue.Count == count;
         }
     }
 }

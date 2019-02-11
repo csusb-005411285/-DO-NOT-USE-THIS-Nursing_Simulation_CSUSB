@@ -17,6 +17,8 @@ namespace AI
 
         public static bool[] speechOrganizerWasTriggered;
 
+        public static bool NoSpeechOrganizersTriggered;
+
         public static void Initialize(Speech.SpeechOrganizerArrayObject speechOrganizerListObj)
         {
             if (speechOrganizerListObj == null)
@@ -105,7 +107,7 @@ namespace AI
         /// Returns a list of OutputClips that were triggered by input, returns null when StartSearch() is running
         /// </summary>
         /// <returns>array of type Speech.outputClip</returns>
-        public static Speech.OutputClip[] getOutputs()
+        public static Speech.OutputClip[] getOutputs()  //TODO not being used for OutputClips, just looking for completion
         {
             speechOrganizerWasTriggered = ParserData.speechOrganizerWasTriggered;
             if (searchIsRunning == true)
@@ -121,7 +123,8 @@ namespace AI
                     outputClipList.Add(ParserData.speechOrganizerArray[i].speechOutput.GetOutputClip());
                 }
             }
-            
+
+            NoSpeechOrganizersTriggered = (outputClipList.Count == 0);
             return outputClipList.ToArray();
         }
 
